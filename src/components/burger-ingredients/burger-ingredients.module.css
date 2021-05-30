@@ -1,0 +1,33 @@
+.ingredients__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    composes: mb-10 from global;
+}
+
+.ingredients__tabs div {
+    flex-grow: 1;
+}
+
+.ingredients__head {
+    composes: mb-6 from global;
+}
+
+.ingredients__items {
+    composes: mb-10 from global;
+}
+
+.ingredients__content {
+    overflow-y: scroll;
+    max-height: calc(100vh - 340px);
+    min-height: calc(100vh - 340px);
+}
+
+.ingredients__content::-webkit-scrollbar {
+	width: 8px;
+}
+.ingredients__content::-webkit-scrollbar-track {
+	background: #2F2F37;
+}
+.ingredients__content::-webkit-scrollbar-thumb {
+	background: #8585AD;
+}
