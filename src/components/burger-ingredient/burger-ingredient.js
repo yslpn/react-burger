@@ -8,10 +8,10 @@ const BurgerIngredient = (data) => {
     return (
         <button type="button" className={styles.ingredient}>
             {data.__v !== 0 ? <Counter count={data.__v} size="default" /> : null}
-            <img className={styles.ingredient__image} src={data.image} alt={data.name}/>
+            <img className={styles.ingredient__image} src={data.image} alt={data.name} />
             <p className={styles.ingredient__price}>
                 <span className="mr-2">{data.price}</span>
-                <CurrencyIcon/>
+                <CurrencyIcon />
             </p>
             <p className={styles.ingredient__name}>
                 {data.name}
@@ -25,6 +25,6 @@ BurgerIngredient.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired
-}; 
+};
 
 export default BurgerIngredient;

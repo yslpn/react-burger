@@ -23,11 +23,13 @@
 }
 
 .ingredients__content::-webkit-scrollbar {
-	width: 8px;
+    width: 8px;
 }
+
 .ingredients__content::-webkit-scrollbar-track {
-	background: #2F2F37;
+    background: #2F2F37;
 }
+
 .ingredients__content::-webkit-scrollbar-thumb {
-	background: #8585AD;
+    background: #8585AD;
 }
