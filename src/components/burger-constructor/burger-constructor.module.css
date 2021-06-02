@@ -1,0 +1,81 @@
+.burger__head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* max-width: 568px; */
+    composes: mb-4 from global;
+    composes: pr-2 from global;
+}
+
+.burger__head .burger__item {
+    max-width: 536px;
+}
+
+.burger__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    composes: mt-4 from global;
+    composes: pr-2 from global;
+}
+
+.burger__footer .burger__item {
+    max-width: 536px;
+}
+
+
+.burger__list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+    max-height: calc(100vh - 340px);
+    min-height: calc(100vh - 340px);
+    overflow-y: scroll;
+}
+
+.burger__list::-webkit-scrollbar {
+	width: 8px;
+}
+.burger__list::-webkit-scrollbar-track {
+	background: #2F2F37;
+}
+.burger__list::-webkit-scrollbar-thumb {
+	background: #8585AD;
+}
+
+.burger__item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 568px;
+    composes: ml-2 from global;
+    
+}
+
+.burger__item > svg {
+    fill: #fff;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.burger__order {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    composes: pr-2 from global;
+    composes: mt-10 from global;
+    composes: mb-10 from global;
+}
+
+.burger__amount {
+    display: flex;
+    align-items: center;
+    composes: mr-10 from global;
+}
+
+.burger__amount svg {
+    height: 32px;
+    width: 32px;
+    margin-left: 10px;
+}
