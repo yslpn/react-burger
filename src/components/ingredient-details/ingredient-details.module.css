@@ -1,0 +1,55 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.details__header {
+    height: 64px;
+    align-self: start;
+    display: flex;
+    align-items: center;
+
+    composes: mt-10 from global;
+    composes: mr-10 from global;
+    composes: mb-0 from global;
+    composes: ml-10 from global;
+
+    composes: text from global;
+    composes: text_type_main-large from global;
+}
+
+.details__name {
+    composes: mt-4 from global;
+    composes: mb-8 from global;
+
+
+    composes: text from global;
+    composes: text_type_main-medium from global;
+}
+
+.details__list {
+    list-style: none;
+    display: flex;
+    gap: 0 20px;
+    height: 56px;
+}
+
+.details__list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.details__item-text {
+    margin: 0;
+    color: #8585AD;
+    composes: text from global;
+    composes: text_type_main-default from global;
+}
+
+.details__item-text--data {
+    composes: text from global;
+    composes: text_type_digits-default from global;
+}
