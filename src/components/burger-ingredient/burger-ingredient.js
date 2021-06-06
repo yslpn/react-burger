@@ -1,22 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-ingredient.module.css';
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import Modal from '../modal/modal';
+import ModalOverlay from '../modal-overlay/modal-overlay';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 const BurgerIngredient = (data) => {
+    const [showModal, setShowModal] = React.useState(false);
+    const openModal = () => setShowModal(!showModal);
 
     return (
-        <button type="button" className={styles.ingredient}>
-            {data.__v !== 0 ? <Counter count={data.__v} size="default" /> : null}
-            <img className={styles.ingredient__image} src={data.image} alt={data.name} />
-            <p className={styles.ingredient__price}>
-                <span className="mr-2">{data.price}</span>
-                <CurrencyIcon />
-            </p>
-            <p className={styles.ingredient__name}>
-                {data.name}
-            </p>
-        </button>
+        <>
+            <button type="button" className={styles.ingredient} onClick={openModal}>
+                {data.__v !== 0 ? <Counter count={data.__v} size="default" /> : null}
+                <img className={styles.ingredient__image} src={data.image} alt={data.name} />
+                <p className={styles.ingredient__price}>
+                    <span className="mr-2">{data.price}</span>
+                    <CurrencyIcon />
+                </p>
+                <p className={styles.ingredient__name}>
+                    {data.name}
+                </p>
+            </button>
+            { showModal &&
+            <ModalOverlay show={showModal} onClose={openModal}>
+                <Modal show={showModal} onClose={openModal}>
+                    <IngredientDetails data={data}/>
+                </Modal>
+            </ModalOverlay>}
+        </>
     )
 }
 
