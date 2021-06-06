@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './app-header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import mobileLogo from '../../images/logo.svg'
+import mobileLogo from '../../images/logo.svg';
 
 const AppHeader = () => {
 
