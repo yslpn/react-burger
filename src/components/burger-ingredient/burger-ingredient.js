@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from './burger-ingredient.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
 const BurgerIngredient = (data) => {
@@ -24,11 +23,10 @@ const BurgerIngredient = (data) => {
                 </p>
             </button>
             { showModal &&
-            <ModalOverlay show={showModal} onClose={openModal}>
                 <Modal show={showModal} onClose={openModal}>
-                    <IngredientDetails data={data}/>
+                    <IngredientDetails data={data} />
                 </Modal>
-            </ModalOverlay>}
+            }
         </>
     )
 }

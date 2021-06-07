@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 
 const BurgerConstructor = (props) => {
@@ -63,11 +62,9 @@ const BurgerConstructor = (props) => {
                 </div>
             </section>
             { showModal &&
-                <ModalOverlay show={showModal} onClose={openModal}>
-                    <Modal show={showModal} onClose={openModal}>
-                        <OrderDetails />
-                    </Modal>
-                </ModalOverlay>}
+                <Modal show={showModal} onClose={openModal}>
+                    <OrderDetails />
+                </Modal>}
         </>
     );
 }
