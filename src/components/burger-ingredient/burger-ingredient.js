@@ -28,7 +28,7 @@ const BurgerIngredient = (data) => {
                 </Modal>
             }
         </>
-    )
+    );
 }
 
 BurgerIngredient.propTypes = {

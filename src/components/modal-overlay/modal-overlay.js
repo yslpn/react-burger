@@ -21,7 +21,7 @@ const ModalOverlay = (props) => {
             document.body.style.overflow = 'unset';
             document.removeEventListener("keydown", onClose, false);
         };
-    })
+    });
 
     return ReactDOM.createPortal(
         <div className={styles.overlay} onClick={(e) => { onClose(e) }} ref={node}>

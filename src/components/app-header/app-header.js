@@ -34,7 +34,7 @@ const AppHeader = () => {
                 </div>
             </nav>
         </header>
-    )
+    );
 }
 
 export default AppHeader;

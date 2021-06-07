@@ -22,8 +22,8 @@ const BurgerConstructor = (props) => {
                     price={data.price}
                 />
             </div>
-        )
-    }
+        );
+    };
 
     return (
         <>

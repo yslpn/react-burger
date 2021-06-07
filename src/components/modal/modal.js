@@ -18,7 +18,7 @@ const Modal = (props) => {
                 {props.children}
             </div>
         </ModalOverlay>
-    )
+    );
 }
 
 Modal.propTypes = {

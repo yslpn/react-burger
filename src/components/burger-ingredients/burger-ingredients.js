@@ -24,8 +24,8 @@ const BurgerIngredients = (props) => {
             sauces.current.scrollIntoView(scrollOptions);
         } else if (e === 'toppings') {
             toppings.current.scrollIntoView(scrollOptions);
-        }
-    }
+        };
+    };
 
     return (
         <section className="ingredients">
@@ -82,7 +82,7 @@ const BurgerIngredients = (props) => {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
 BurgerIngredients.propTypes = {
