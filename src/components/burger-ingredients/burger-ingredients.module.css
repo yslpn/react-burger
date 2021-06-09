@@ -16,6 +16,11 @@
     composes: mb-10 from global;
 }
 
+.ingredients__item-wrapper {
+    width: 50%;
+    display: inline-flex;
+}
+
 .ingredients__content {
     overflow-y: scroll;
     max-height: calc(100vh - 340px);
