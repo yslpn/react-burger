@@ -12,28 +12,35 @@ function App() {
   const apiURL = 'https://norma.nomoreparties.space/api';
 
   const getResource = async (url) => {
+    try {
+      const res = await fetch(`${apiURL}${url}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Could not fetch ${url}, received ${response.status}`)
+          };
+          return response.json();
+        })
+        .then((json) => {
+          return json;
+        })
+        .catch(() => {
+          setHasError(true);
+        });
 
-    const res = await fetch(`${apiURL}${url}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Could not fetch ${url}, received ${response.status}`)
-        };
-        return response.json();
-      })
-      .then((json) => {
-        return json;
-      })
-      .catch(() => {
-        setHasError(true);
-      });
-
-    return await res;
+      return await res;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   React.useEffect(() => {
     const getAllIngredients = async () => {
-      const res = await getResource(`/ingredients`);
-      setData(res.data);
+      try {
+        const res = await getResource(`/ingredients`);
+        setData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     getAllIngredients();
@@ -46,7 +53,7 @@ function App() {
         <div className={`${styles.container} ${styles.main__wrapper}`}>
           <h1 className={`${styles.head} text text_type_main-large mt-10 mb-5`}>Собери бургер</h1>
           <div className={styles['main__content-items']}>
-            {hasError ? <p>Ошибка, обратитесь к администратору сайта</p> :
+            {hasError ? <p className="text text_type_main-defalult">Ошибка, обратитесь к администратору сайта</p> :
               <>
                 <div className={styles['main__content-item']}>
                   {data && <BurgerIngredients data={data} />}
