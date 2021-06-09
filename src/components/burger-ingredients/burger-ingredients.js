@@ -8,11 +8,11 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = React.useState('buns');
-    const [modalStatus, setmodalStatus] = React.useState(false);
+    const [modalStatus, setModalStatus] = React.useState(false);
     const [modalData, setModalData] = React.useState({});
 
     const toggleModal = () => {
-        setmodalStatus(!modalStatus);
+        setModalStatus(!modalStatus);
     }
 
     const newModalData = (newData) => {

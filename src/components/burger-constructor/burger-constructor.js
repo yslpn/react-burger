@@ -7,11 +7,11 @@ import OrderDetails from '../order-details/order-details';
 
 const BurgerConstructor = (props) => {
     const [amount, setAmount] = React.useState(0);
-    const [modalStatus, setmodalStatus] = React.useState(false);
-    const toggleModal = () => setmodalStatus(!modalStatus);
+    const [modalStatus, setModalStatus] = React.useState(false);
+    const toggleModal = () => setModalStatus(!modalStatus);
     let countAmount = 0;
 
-    const burgerElem = (data, lock, position) => {
+    const getBurgerElem = (data, lock, position) => {
         countAmount += data.price
         return (
             <div className={styles.burger__item} key={data._id}>
@@ -38,7 +38,7 @@ const BurgerConstructor = (props) => {
                     <div className={styles.burger__head}>
                         {props.data.map((data) => {
                             if (data.type === 'bun' && data.name === 'Краторная булка N-200i') {
-                                return burgerElem(data, true, "top");
+                                return getBurgerElem(data, true, "top");
                             };
                             return null;
                         })}
@@ -46,7 +46,7 @@ const BurgerConstructor = (props) => {
                     <div className={styles.burger__list}>
                         {props.data.map((data) => {
                             if (data.type !== 'bun') {
-                                return burgerElem(data, false);
+                                return getBurgerElem(data, false);
                             };
                             return null;
                         })}
@@ -54,7 +54,7 @@ const BurgerConstructor = (props) => {
                     <div className={styles.burger__footer}>
                         {props.data.map((data) => {
                             if (data.type === 'bun' && data.name === 'Краторная булка N-200i') {
-                                return burgerElem(data, true, "bottom");
+                                return getBurgerElem(data, true, "bottom");
                             };
                             return null;
                         })}

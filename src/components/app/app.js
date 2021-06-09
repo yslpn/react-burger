@@ -23,7 +23,7 @@ function App() {
       .then((json) => {
         return json;
       })
-      .catch((response) => {
+      .catch(() => {
         setHasError(true);
       });
 
