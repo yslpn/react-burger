@@ -7,8 +7,8 @@ import OrderDetails from '../order-details/order-details';
 
 const BurgerConstructor = (props) => {
     const amount = props.data.reduce((a, b) => a + b.price, 0);
-    const [showModal, setShowModal] = React.useState(false);
-    const openModal = () => setShowModal(!showModal);
+    const [modalStatus, setmodalStatus] = React.useState(false);
+    const toggleModal = () => setmodalStatus(!modalStatus);
 
     const burgerElem = (data, lock, position) => {
         return (
@@ -56,24 +56,22 @@ const BurgerConstructor = (props) => {
                 </div>
                 <div className={styles.burger__order}>
                     <p className={`${styles.burger__amount} text text_type_main-large`}>{amount} <CurrencyIcon type="primary" /></p>
-                    <Button type="primary" size="large" onClick={openModal}>
+                    <Button type="primary" size="large" onClick={toggleModal}>
                         Оформить заказ
                     </Button>
                 </div>
             </section>
-            { showModal &&
-                <Modal show={showModal} onClose={openModal}>
+            { modalStatus &&
+                <Modal status={modalStatus} close={toggleModal}>
                     <OrderDetails />
-                </Modal>}
+                </Modal>
+            }
         </>
     );
 }
 
 BurgerConstructor.propTypes = {
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    data: PropTypes.array,
-    price: PropTypes.number,
+    data: PropTypes.array.isRequired
 };
 
 export default BurgerConstructor;
