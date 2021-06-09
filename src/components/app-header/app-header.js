@@ -9,7 +9,7 @@ const AppHeader = () => {
         <header className={styles.header}>
             <nav className={`${styles['header__nav']} pt-4 pb-4`}>
                 <div className={`${styles['header__nav-item']} ${styles['header__nav-item--logo']}`}>
-                    <a href="/">
+                    <a href="##">
                         <Logo />
                         <img className={styles['header__logo-mobile']} src={mobileLogo} alt="React Burger Logo" />
                     </a>
