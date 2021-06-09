@@ -6,11 +6,13 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
 const BurgerConstructor = (props) => {
-    const amount = props.data.reduce((a, b) => a + b.price, 0);
+    const [amount, setAmount] = React.useState(0);
     const [modalStatus, setmodalStatus] = React.useState(false);
     const toggleModal = () => setmodalStatus(!modalStatus);
+    let countAmount = 0;
 
     const burgerElem = (data, lock, position) => {
+        countAmount += data.price
         return (
             <div className={styles.burger__item} key={data._id}>
                 {position ? null : <DragIcon type="secondary" />}
@@ -24,6 +26,10 @@ const BurgerConstructor = (props) => {
             </div>
         );
     };
+
+    React.useEffect(() => {
+        setAmount(countAmount);
+    }, [countAmount]);
 
     return (
         <>
