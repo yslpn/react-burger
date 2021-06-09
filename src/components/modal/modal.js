@@ -5,13 +5,13 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 
 const Modal = (props) => {
-    const onClose = (e) => props.onClose && props.onClose(e);
+    const closeModal = (e) => props.close && props.close(e);
 
     return (
-        <ModalOverlay show={props.show} onClose={props.onClose}>
+        <ModalOverlay status={props.status} close={props.close}>
             <div className={styles.modal}>
                 <button type="button" aria-label="Закрыть" className={styles['modal__close-btn']}
-                    onClick={(e) => { onClose(e) }}
+                    onClick={(e) => { closeModal(e) }}
                 >
                     <CloseIcon type="primary" />
                 </button>
@@ -22,8 +22,9 @@ const Modal = (props) => {
 }
 
 Modal.propTypes = {
-    show: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
+    status: PropTypes.bool.isRequired,
+    children: PropTypes.element.isRequired,
+    close: PropTypes.func.isRequired
 };
 
 export default Modal;
