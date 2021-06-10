@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    /* max-width: 568px; */
     composes: mb-4 from global;
     composes: pr-2 from global;
 }
@@ -23,7 +22,6 @@
     max-width: 536px;
 }
 
-
 .burger__list {
     display: flex;
     flex-direction: column;
@@ -35,13 +33,15 @@
 }
 
 .burger__list::-webkit-scrollbar {
-	width: 8px;
+    width: 8px;
 }
+
 .burger__list::-webkit-scrollbar-track {
-	background: #2F2F37;
+    background: #2F2F37;
 }
+
 .burger__list::-webkit-scrollbar-thumb {
-	background: #8585AD;
+    background: #8585AD;
 }
 
 .burger__item {
@@ -50,10 +50,10 @@
     width: 100%;
     max-width: 568px;
     composes: ml-2 from global;
-    
+
 }
 
-.burger__item > svg {
+.burger__item>svg {
     fill: #fff;
     margin-right: 8px;
     cursor: pointer;

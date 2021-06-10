@@ -1,7 +1,6 @@
 .header {
     background-color: #1C1C21;
     position: relative;
-
 }
 
 .header__nav {
@@ -70,8 +69,3 @@
         display: block;
     }
 }
-
-/* @media (max-width: 768px) {
-
-
-} */

@@ -1,14 +1,6 @@
-.main {
-
-}
-
 .container {
   max-width: 1280px;
   margin: 0 auto;
-}
-
-.main__wrapper {
-
 }
 
 .main__content-items {
@@ -19,8 +11,3 @@
 .main__content-item {
   width: 50%;
 }
-
-.main__head {
-
-}
-
