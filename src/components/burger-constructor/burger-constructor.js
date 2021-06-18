@@ -1,18 +1,69 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-const BurgerConstructor = (props) => {
-    const [amount, setAmount] = React.useState(0);
+import { BurgerContext } from '../services/burger-context';
+
+const BurgerConstructor = () => {
     const [modalStatus, setModalStatus] = React.useState(false);
     const toggleModal = () => setModalStatus(!modalStatus);
-    let countAmount = 0;
+    const { data } = React.useContext(BurgerContext);
+    const [modalData, setModalData] = React.useState(undefined);
+
+    const bun = data.filter(i => i.type === 'bun')[0];
+    const filteredIngredients = data.filter(i => i.type !== 'bun');
+    const amount = filteredIngredients.reduce((acc, i) => acc + i.price, 0) + bun.price * 2;
+
+    let cart = { "ingredients": [...filteredIngredients, bun, bun].map((item) => item._id) }
+
+    const sendResource = async (url, data) => {
+        const apiURL = 'https://norma.nomoreparties.space/api';
+        try {
+            const res = await fetch(`${apiURL}${url}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`Could not fetch ${url}, received ${response.status}`)
+                    };
+                    return response.json();
+                })
+                .then((json) => {
+                    return json;
+                })
+                .catch((error) => {
+                    console.error('Ошибка:', error);
+                });
+
+            return await res;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const makeOrder = async () => {
+        try {
+            const res = await sendResource('/orders', cart);
+            setModalData(res);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const getBurgerElem = (data, lock, position) => {
-        countAmount += data.price
+        let name = data.name;
+        if (position === 'top') {
+            name += ' (верх)';
+        } else if (position === 'bottom') {
+            name += ' (низ)';
+        }
+
         return (
             <div className={styles.burger__item} key={data._id}>
                 {position ? null : <DragIcon type="secondary" />}
@@ -20,64 +71,46 @@ const BurgerConstructor = (props) => {
                     thumbnail={data.image_mobile}
                     type={position}
                     isLocked={lock}
-                    text={data.name}
+                    text={name}
                     price={data.price}
                 />
             </div>
         );
     };
 
-    React.useEffect(() => {
-        setAmount(countAmount);
-    }, [countAmount]);
-
     return (
         <>
             <section className={styles.burger}>
                 <div>
                     <div className={styles.burger__head}>
-                        {props.data.map((data) => {
-                            if (data.type === 'bun' && data.name === 'Краторная булка N-200i') {
-                                return getBurgerElem(data, true, "top");
-                            };
-                            return null;
-                        })}
+                        {getBurgerElem(bun, true, "top")}
                     </div>
                     <div className={styles.burger__list}>
-                        {props.data.map((data) => {
-                            if (data.type !== 'bun') {
-                                return getBurgerElem(data, false);
-                            };
-                            return null;
-                        })}
+                        {filteredIngredients.map((elems) => getBurgerElem(elems, false))}
                     </div>
                     <div className={styles.burger__footer}>
-                        {props.data.map((data) => {
-                            if (data.type === 'bun' && data.name === 'Краторная булка N-200i') {
-                                return getBurgerElem(data, true, "bottom");
-                            };
-                            return null;
-                        })}
+                        {getBurgerElem(bun, true, "bottom")}
                     </div>
                 </div>
                 <div className={styles.burger__order}>
-                    <p className={`${styles.burger__amount} text text_type_main-large`}>{amount} <CurrencyIcon type="primary" /></p>
-                    <Button type="primary" size="large" onClick={toggleModal}>
+                    <p className={`${styles.burger__amount} text text_type_main-large`}>
+                        {amount}&nbsp;<CurrencyIcon type="primary" />
+                    </p>
+                    <Button type="primary" size="large" onClick={() => {
+                        toggleModal();
+                        makeOrder();
+                        }}>
                         Оформить заказ
                     </Button>
                 </div>
             </section>
-            { modalStatus &&
+            { modalStatus && modalData &&
                 <Modal status={modalStatus} close={toggleModal}>
-                    <OrderDetails />
+                    <OrderDetails data={modalData}/>
                 </Modal>
             }
         </>
     );
 }
-
-BurgerConstructor.propTypes = {
-    data: PropTypes.array.isRequired
-};
 
 export default BurgerConstructor;
