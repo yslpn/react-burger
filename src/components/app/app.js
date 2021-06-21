@@ -58,7 +58,7 @@ function App() {
               {hasError ? <p className="text text_type_main-defalult">Ошибка, обратитесь к администратору сайта</p> :
                 <>
                   <div className={styles['main__content-item']}>
-                    {data && <BurgerIngredients data={data} />}
+                    {data && <BurgerIngredients />}
                   </div>
                   <div className={styles['main__content-item']}>
                     {data && <BurgerConstructor />}
