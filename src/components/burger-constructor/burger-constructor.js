@@ -20,31 +20,28 @@ const BurgerConstructor = () => {
 
     const sendResource = async (url, data) => {
         const apiURL = 'https://norma.nomoreparties.space/api';
-        try {
-            const res = await fetch(`${apiURL}${url}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`Could not fetch ${url}, received ${response.status}`)
-                    };
-                    return response.json();
-                })
-                .then((json) => {
-                    return json;
-                })
-                .catch((error) => {
-                    console.error('Ошибка:', error);
-                });
 
-            return await res;
-        } catch (err) {
-            console.log(err);
-        }
+        const res = await fetch(`${apiURL}${url}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Could not fetch ${url}, received ${response.status}`)
+                };
+                return response.json();
+            })
+            .then((json) => {
+                return json;
+            })
+            .catch((error) => {
+                console.error('Ошибка:', error);
+            });
+
+        return await res;
     };
 
     const makeOrder = async () => {
@@ -99,14 +96,14 @@ const BurgerConstructor = () => {
                     <Button type="primary" size="large" onClick={() => {
                         toggleModal();
                         makeOrder();
-                        }}>
+                    }}>
                         Оформить заказ
                     </Button>
                 </div>
             </section>
             { modalStatus && modalData &&
                 <Modal status={modalStatus} close={toggleModal}>
-                    <OrderDetails data={modalData}/>
+                    <OrderDetails data={modalData} />
                 </Modal>
             }
         </>
