@@ -4,7 +4,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 
-import { BurgerContext } from '../services/burger-context';
+import { BurgerContext } from '../../services/burger-context';
 
 function App() {
   const [data, setData] = React.useState();

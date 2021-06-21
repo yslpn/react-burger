@@ -5,7 +5,7 @@ import BurgerIngredient from '../burger-ingredient/burger-ingredient.js';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
-import { BurgerContext } from '../services/burger-context';
+import { BurgerContext } from '../../services/burger-context';
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = React.useState('buns');

@@ -4,7 +4,7 @@ import { ConstructorElement, CurrencyIcon, DragIcon, Button } from '@ya.praktiku
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-import { BurgerContext } from '../services/burger-context';
+import { BurgerContext } from '../../services/burger-context';
 
 const BurgerConstructor = () => {
     const [modalStatus, setModalStatus] = React.useState(false);
