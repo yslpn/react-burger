@@ -4,6 +4,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 
+import { BurgerContext } from '../../services/burger-context';
 
 function App() {
   const [data, setData] = React.useState();
@@ -48,24 +49,26 @@ function App() {
 
   return (
     <div className="app">
-      <AppHeader />
-      <main className={styles.main}>
-        <div className={`${styles.container} ${styles.main__wrapper}`}>
-          <h1 className={`${styles.head} text text_type_main-large mt-10 mb-5`}>Собери бургер</h1>
-          <div className={styles['main__content-items']}>
-            {hasError ? <p className="text text_type_main-defalult">Ошибка, обратитесь к администратору сайта</p> :
-              <>
-                <div className={styles['main__content-item']}>
-                  {data && <BurgerIngredients data={data} />}
-                </div>
-                <div className={styles['main__content-item']}>
-                  {data && <BurgerConstructor data={data} />}
-                </div>
-              </>
-            }
+      <BurgerContext.Provider value={{ data }}>
+        <AppHeader />
+        <main className={styles.main}>
+          <div className={`${styles.container} ${styles.main__wrapper}`}>
+            <h1 className={`${styles.head} text text_type_main-large mt-10 mb-5`}>Собери бургер</h1>
+            <div className={styles['main__content-items']}>
+              {hasError ? <p className="text text_type_main-defalult">Ошибка, обратитесь к администратору сайта</p> :
+                <>
+                  <div className={styles['main__content-item']}>
+                    {data && <BurgerIngredients />}
+                  </div>
+                  <div className={styles['main__content-item']}>
+                    {data && <BurgerConstructor />}
+                  </div>
+                </>
+              }
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </BurgerContext.Provider>
     </div>
   );
 }

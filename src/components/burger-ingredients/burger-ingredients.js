@@ -1,15 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient.js';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
-const BurgerIngredients = (props) => {
+import { BurgerContext } from '../../services/burger-context';
+
+const BurgerIngredients = () => {
     const [current, setCurrent] = React.useState('buns');
     const [modalStatus, setModalStatus] = React.useState(false);
     const [modalData, setModalData] = React.useState({});
+
+    const { data } = React.useContext(BurgerContext);
 
     const toggleModal = () => {
         setModalStatus(!modalStatus);
@@ -57,7 +60,7 @@ const BurgerIngredients = (props) => {
                     <div className="ingredients__wrapper" ref={buns}>
                         <h2 className={`${styles.ingredients__head} text text_type_main-medium`}>Булки</h2>
                         <div className={styles.ingredients__items}>
-                            {props.data.map((data) => {
+                            {data.map((data) => {
                                 if (data.type === "bun") {
                                     return (
                                         <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
@@ -76,7 +79,7 @@ const BurgerIngredients = (props) => {
                         <h2 className={`${styles.ingredients__head} text text_type_main-medium`}>Соусы</h2>
                         <div className={styles.ingredients__items}>
                             <div className={styles.ingredients__items} >
-                                {props.data.map((data) => {
+                                {data.map((data) => {
                                     if (data.type === "sauce") {
                                         return (
                                             <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
@@ -96,7 +99,7 @@ const BurgerIngredients = (props) => {
                         <h2 className={`${styles.ingredients__head} text text_type_main-medium`}>Начинки</h2>
                         <div className={styles.ingredients__items}>
                             <div className={styles.ingredients__items} >
-                                {props.data.map((data) => {
+                                {data.map((data) => {
                                     if (data.type === "main") {
                                         return (
                                             <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
@@ -122,9 +125,5 @@ const BurgerIngredients = (props) => {
         </>
     );
 }
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.array.isRequired
-};
 
 export default BurgerIngredients;
