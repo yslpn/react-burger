@@ -5,6 +5,7 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
 import { BurgerContext } from '../../services/burger-context';
+import { apiURL } from '../../utils/constants'
 
 const BurgerConstructor = () => {
     const [modalStatus, setModalStatus] = React.useState(false);
@@ -19,7 +20,6 @@ const BurgerConstructor = () => {
     let cart = { "ingredients": [...filteredIngredients, bun, bun].map((item) => item._id) }
 
     const sendResource = async (url, data) => {
-        const apiURL = 'https://norma.nomoreparties.space/api';
 
         const res = await fetch(`${apiURL}${url}`, {
             method: 'POST',

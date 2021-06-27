@@ -6,11 +6,11 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 
 import { BurgerContext } from '../../services/burger-context';
 
+import { apiURL } from '../../utils/constants'
+
 function App() {
   const [data, setData] = React.useState();
   const [hasError, setHasError] = React.useState(false);
-
-  const apiURL = 'https://norma.nomoreparties.space/api';
 
   const getResource = async (url) => {
     try {
