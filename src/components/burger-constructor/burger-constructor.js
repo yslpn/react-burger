@@ -3,55 +3,39 @@ import styles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-
-import { BurgerContext } from '../../services/burger-context';
-import { apiURL } from '../../utils/constants'
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from "react-dnd";
+import { makeOrder } from '../../services/actions/order';
 
 const BurgerConstructor = () => {
-    const [modalStatus, setModalStatus] = React.useState(false);
-    const toggleModal = () => setModalStatus(!modalStatus);
-    const { data } = React.useContext(BurgerContext);
-    const [modalData, setModalData] = React.useState(undefined);
+    const dispatch = useDispatch();
+    const { modalIsOpened, orderDetails, orderItems, ingredientsData } = useSelector(store => ({
+        modalIsOpened: store.modal.modalIsOpened,
+        orderDetails: store.modal.orderDetails,
+        orderItems: store.order.orderItems,
+        ingredientsData: store.ingredients.ingredientsData
+    }));
+    const [amount, setAmount] = React.useState(0);
 
-    const bun = data.filter(i => i.type === 'bun')[0];
-    const filteredIngredients = data.filter(i => i.type !== 'bun');
-    const amount = filteredIngredients.reduce((acc, i) => acc + i.price, 0) + bun.price * 2;
+    const onDropHandler = (a) => {
+        const item = ingredientsData.find(i => i._id === a._id);
 
-    let cart = { "ingredients": [...filteredIngredients, bun, bun].map((item) => item._id) }
-
-    const sendResource = async (url, data) => {
-
-        const res = await fetch(`${apiURL}${url}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`Could not fetch ${url}, received ${response.status}`)
-                };
-                return response.json();
+        if (item.type === 'bun') {
+            orderItems.map(() => {
+                dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: item });
+                return null;
             })
-            .then((json) => {
-                return json;
-            })
-            .catch((error) => {
-                console.error('Ошибка:', error);
-            });
-
-        return await res;
-    };
-
-    const makeOrder = async () => {
-        try {
-            const res = await sendResource('/orders', cart);
-            setModalData(res);
-        } catch (err) {
-            console.log(err);
         }
-    };
+
+        dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
+    }
+
+    const [, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop(itemId) {
+            onDropHandler(itemId);
+        },
+    });
 
     const getBurgerElem = (data, lock, position) => {
         let name = data.name;
@@ -75,18 +59,24 @@ const BurgerConstructor = () => {
         );
     };
 
+    React.useEffect(() => {
+        setAmount(orderItems.reduce((acc, i) => i.type === 'bun' ? acc + (i.price * 2) : acc + i.price, 0));
+    }, [orderItems]);
+
     return (
-        <>
+        <div
+            ref={dropTarget}
+        >
             <section className={styles.burger}>
                 <div>
                     <div className={styles.burger__head}>
-                        {getBurgerElem(bun, true, "top")}
+                        {orderItems.map((elem) => elem.type === 'bun' ? getBurgerElem(elem, true, 'top') : null)}
                     </div>
                     <div className={styles.burger__list}>
-                        {filteredIngredients.map((elems) => getBurgerElem(elems, false))}
+                        {orderItems.map((elem) => elem.type !== 'bun' ? getBurgerElem(elem, true) : null)}
                     </div>
                     <div className={styles.burger__footer}>
-                        {getBurgerElem(bun, true, "bottom")}
+                        {orderItems.map((elem) => elem.type === 'bun' ? getBurgerElem(elem, true, 'bottom') : null)}
                     </div>
                 </div>
                 <div className={styles.burger__order}>
@@ -94,19 +84,18 @@ const BurgerConstructor = () => {
                         {amount}&nbsp;<CurrencyIcon type="primary" />
                     </p>
                     <Button type="primary" size="large" onClick={() => {
-                        toggleModal();
-                        makeOrder();
+                        dispatch(makeOrder(orderItems));
                     }}>
                         Оформить заказ
                     </Button>
                 </div>
             </section>
-            { modalStatus && modalData &&
-                <Modal status={modalStatus} close={toggleModal}>
-                    <OrderDetails data={modalData} />
+            {modalIsOpened && orderDetails &&
+                <Modal>
+                    <OrderDetails />
                 </Modal>
             }
-        </>
+        </div>
     );
 }
 
