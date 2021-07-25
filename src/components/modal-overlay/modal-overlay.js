@@ -3,20 +3,24 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styles from './modal-overlay.module.css';
 
+import { useDispatch } from 'react-redux';
+
 const ModalOverlay = (props) => {
+    const dispatch = useDispatch();
+    
     const node = React.useRef();
     const modalRoot = document.getElementById('modal');
 
     const closeWithEscape = (e) => {
         if (e.keyCode === 27) {
-            props.close && props.close(e);
+            dispatch({type: 'CLOSE_MODAL'});
         }
         return null;
     };
 
     const closeWithClick = (e) => {
         if (node.current === e.target) {
-            props.close && props.close(e);
+            dispatch({type: 'CLOSE_MODAL'});
         }
         return null;
     };
@@ -39,9 +43,7 @@ const ModalOverlay = (props) => {
 }
 
 ModalOverlay.propTypes = {
-    status: PropTypes.bool.isRequired,
     children: PropTypes.element.isRequired,
-    close: PropTypes.func.isRequired
 };
 
 export default ModalOverlay;
