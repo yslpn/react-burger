@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
-import { loadingReducer } from './loading';
+import { ingredientsReducer } from './ingredients';
+import { modalReducer } from './modal';
+import { orderReducer } from './order';
 
 export const rootReducer = combineReducers({
-    loading: loadingReducer
+    ingredients: ingredientsReducer,
+    modal: modalReducer,
+    order: orderReducer
 }) 
