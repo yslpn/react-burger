@@ -2,7 +2,6 @@ import { ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER, CLEAR_ORDER_ITEMS } from '..
 
 const initialState = {
     orderAmount: 0,
-    orderNumberElems: 0,
     orderItems: []
 }
 
@@ -21,15 +20,13 @@ export const orderReducer = (state = initialState, action) => {
                 ...state,
                 modalIsOpened: false,
                 orderItems: [...state.orderItems, action.orderItems],
-                orderNumberElems: state.orderNumberElems + 1
             };
         }
         case REMOVE_ITEM_FROM_ORDER: {
             return {
                 ...state,
                 modalIsOpened: false,
-                orderItems: removeItemOnce(state.orderItems, action.orderItems),
-                orderNumberElems: state.orderNumberElems - 1
+                orderItems: removeItemOnce(state.orderItems, action.orderItems),     
             };
         }
         case CLEAR_ORDER_ITEMS: {

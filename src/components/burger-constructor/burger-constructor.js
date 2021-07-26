@@ -23,11 +23,13 @@ const BurgerConstructor = () => {
             orderItems.map((elem) => {
                 if (elem.type === 'bun') {
                     dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
+                    dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
                 }
                 return null;
             })
         }
         dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
+        dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
     }
 
     const [, dropTarget] = useDrop({

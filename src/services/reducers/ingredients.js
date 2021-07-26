@@ -1,23 +1,9 @@
-import { GET_INGREDIENTS, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS } from '../actions/ingredients';
+import { GET_INGREDIENTS, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS, INCREASE_COUNTER, DECREASE_COUNTER } from '../actions/ingredients';
 
 const initialState = {
     ingredientsRequest: false,
     ingredientsFailed: false,
-    // ingredientsData: []
-    ingredientsData: [{
-        "_id": "60d3b41abdacab0026a733c6",
-        "name": "Краторная булка N-200i",
-        "type": "bun",
-        "proteins": 80,
-        "fat": 24,
-        "carbohydrates": 53,
-        "calories": 420,
-        "price": 1255,
-        "image": "https://code.s3.yandex.net/react/code/bun-02.png",
-        "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
-        "__v": 0
-    }]
+    ingredientsData: []
 }
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -41,6 +27,18 @@ export const ingredientsReducer = (state = initialState, action) => {
                 ...state,
                 ingredientsFailed: true,
                 ingredientsRequest: false
+            };
+        }
+        case INCREASE_COUNTER: {
+            return {
+                ...state,
+                ingredientsData: [...state.ingredientsData, action.ingredient.__v += 1],
+            };
+        }
+        case DECREASE_COUNTER: {
+            return {
+                ...state,
+                ingredientsData: [...state.ingredientsData, action.ingredient.__v -= 1],              
             };
         }
         default: {

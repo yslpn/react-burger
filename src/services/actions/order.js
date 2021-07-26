@@ -4,23 +4,6 @@ export const ADD_ITEM_TO_ORDER = 'ADD_ITEM_TO_ORDER';
 export const REMOVE_ITEM_FROM_ORDER = 'REMOVE_ITEM_FROM_ORDER';
 export const CLEAR_ORDER_ITEMS = 'CLEAR_ORDER_ITEMS';
 
-// export function addIngredient(ingredient) {
-
-//     return function (dispatch) {
-//         if (ingredient.type === "bun") {
-//             dispatch({
-//                 type: ADD_ITEM_TO_ORDER,
-//                 orderItems: ingredient,
-//             });
-//         } else {
-//             dispatch({
-//                 type: ADD_ITEM_TO_ORDER,
-//                 orderItems: ingredient,
-//             });
-//         }
-//     }
-// }
-
 const sendResource = (url, data) => {
     return fetch(`${url}`, {
         method: 'POST',
