@@ -22,8 +22,6 @@ const BurgerConstructor = () => {
         if (item.type === 'bun') {
             orderItems.map((elem) => {
                 if (elem.type === 'bun') {
-                    console.log('elem', elem);
-                    console.log(elem.type);
                     dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
                 }
                 return null;
