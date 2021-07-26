@@ -6,6 +6,14 @@ const initialState = {
     orderItems: []
 }
 
+const removeItemOnce = (arr, value) => {
+    const index = arr.indexOf(value);
+    if (index > -1) {
+        arr.splice(index, 1);
+    }
+    return arr;
+}
+
 export const orderReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_ITEM_TO_ORDER: {
@@ -20,7 +28,7 @@ export const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 modalIsOpened: false,
-                orderItems: [state.orderItems.filter(item => item._id === action.orderItems._id)],
+                orderItems: removeItemOnce(state.orderItems, action.orderItems),
                 orderNumberElems: state.orderNumberElems - 1
             };
         }

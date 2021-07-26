@@ -19,14 +19,16 @@ const BurgerConstructor = () => {
 
     const onDropHandler = (a) => {
         const item = ingredientsData.find(i => i._id === a._id);
-
         if (item.type === 'bun') {
-            orderItems.map(() => {
-                dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: item });
+            orderItems.map((elem) => {
+                if (elem.type === 'bun') {
+                    console.log('elem', elem);
+                    console.log(elem.type);
+                    dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
+                }
                 return null;
             })
         }
-
         dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
     }
 
@@ -37,16 +39,15 @@ const BurgerConstructor = () => {
         },
     });
 
-    const getBurgerElem = (data, lock, position) => {
+    const getBurgerElem = (data, index, lock, position) => {
         let name = data.name;
         if (position === 'top') {
             name += ' (верх)';
         } else if (position === 'bottom') {
             name += ' (низ)';
         }
-
         return (
-            <div className={styles.burger__item} key={data._id}>
+            <div className={styles.burger__item} key={index}>
                 {position ? null : <DragIcon type="secondary" />}
                 <ConstructorElement
                     thumbnail={data.image_mobile}
@@ -70,13 +71,13 @@ const BurgerConstructor = () => {
             <section className={styles.burger}>
                 <div>
                     <div className={styles.burger__head}>
-                        {orderItems.map((elem) => elem.type === 'bun' ? getBurgerElem(elem, true, 'top') : null)}
+                        {orderItems.map((elem, index) => elem.type === 'bun' ? getBurgerElem(elem, index, true, 'top') : null)}
                     </div>
                     <div className={styles.burger__list}>
-                        {orderItems.map((elem) => elem.type !== 'bun' ? getBurgerElem(elem, true) : null)}
+                        {orderItems.map((elem, index) => elem.type !== 'bun' ? getBurgerElem(elem, index, true) : null)}
                     </div>
                     <div className={styles.burger__footer}>
-                        {orderItems.map((elem) => elem.type === 'bun' ? getBurgerElem(elem, true, 'bottom') : null)}
+                        {orderItems.map((elem, index) => elem.type === 'bun' ? getBurgerElem(elem, index, true, 'bottom') : null)}
                     </div>
                 </div>
                 <div className={styles.burger__order}>
