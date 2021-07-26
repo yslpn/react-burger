@@ -74,7 +74,7 @@ const BurgerConstructor = () => {
                         {orderItems.map((elem, index) => elem.type === 'bun' ? getBurgerElem(elem, index, true, 'top') : null)}
                     </div>
                     <div className={styles.burger__list}>
-                        {orderItems.map((elem, index) => elem.type !== 'bun' ? getBurgerElem(elem, index, true) : null)}
+                        {orderItems.map((elem, index) => elem.type !== 'bun' ? getBurgerElem(elem, index, false) : null)}
                     </div>
                     <div className={styles.burger__footer}>
                         {orderItems.map((elem, index) => elem.type === 'bun' ? getBurgerElem(elem, index, true, 'bottom') : null)}
