@@ -91,7 +91,20 @@ const BurgerConstructor = () => {
                         {amount}&nbsp;<CurrencyIcon type="primary" />
                     </p>
                     <Button type="primary" size="large" onClick={() => {
-                        dispatch(makeOrder(orderItems));
+                        let { bun, ingredients } = false;
+                        
+                        orderItems.map((i) => {
+                            if (i.type === 'bun') {
+                                bun = true;
+                            } else if (i.type !== 'bun') {
+                                ingredients = true;
+                            }
+                            return null;
+                        })
+
+                        if (bun && ingredients) {
+                            dispatch(makeOrder(orderItems))
+                        };
                     }}>
                         Оформить заказ
                     </Button>
