@@ -20,6 +20,7 @@ const BurgerIngredients = () => {
 
     const [current, setCurrent] = React.useState('buns');
 
+    const scrollContainerRef = React.useRef(null);
     const buns = React.useRef(null);
     const sauces = React.useRef(null);
     const toppings = React.useRef(null);
@@ -40,16 +41,35 @@ const BurgerIngredients = () => {
         };
     };
 
+    const handleScroll = () => {
+        const scrollContainerPosition = scrollContainerRef.current.getBoundingClientRect().top;
+        const firstHeaderPosition = buns.current.getBoundingClientRect().top;
+        const secondHeaderPosition = sauces.current.getBoundingClientRect().top;
+        const thirdHeaderPosition = toppings.current.getBoundingClientRect().top;
+
+        const firstDiff = Math.abs(scrollContainerPosition - firstHeaderPosition);
+        const secondDiff = Math.abs(scrollContainerPosition - secondHeaderPosition);
+        const thirdDiff = Math.abs(scrollContainerPosition - thirdHeaderPosition);
+
+        if (firstDiff < secondDiff && firstDiff < thirdDiff) {
+            setCurrent('buns')
+        } else if (secondDiff < firstDiff && secondDiff < thirdDiff) {
+            setCurrent('sauces')
+        } else {
+            setCurrent('toppings')
+        }
+    };
+
     React.useEffect(() => {
         dispatch(getIngredients())
     }, [dispatch]);
 
 
-    if(ingredientsRequest) {
+    if (ingredientsRequest) {
         return <p className={null}>Загрузка</p>
     }
 
-    if(ingredientsFailed) {
+    if (ingredientsFailed) {
         return <p className={null}>Ошибка, обратитесь к администратору сайта</p>
     }
 
@@ -67,7 +87,7 @@ const BurgerIngredients = () => {
                         Начинки
                     </Tab>
                 </div>
-                <div className={styles.ingredients__content}>
+                <div className={styles.ingredients__content} ref={scrollContainerRef} onScroll={handleScroll}>
                     <div className="ingredients__wrapper" ref={buns}>
                         <h2 className={`${styles.ingredients__head} text text_type_main-medium`}>Булки</h2>
                         <div className={styles.ingredients__items}>
@@ -75,7 +95,7 @@ const BurgerIngredients = () => {
                                 if (data.type === "bun") {
                                     return (
                                         <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
-                                            dispatch({type: 'OPEN_MODAL', ingredientDetails: data});
+                                            dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
                                         }}>
                                             <BurgerIngredient key={data._id} {...data} />
                                         </div>
@@ -93,7 +113,7 @@ const BurgerIngredients = () => {
                                     if (data.type === "sauce") {
                                         return (
                                             <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
-                                                dispatch({type: 'OPEN_MODAL', ingredientDetails: data});
+                                                dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
                                             }}>
                                                 <BurgerIngredient key={data._id} {...data} />
                                             </div>
@@ -112,7 +132,7 @@ const BurgerIngredients = () => {
                                     if (data.type === "main") {
                                         return (
                                             <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
-                                                dispatch({type: 'OPEN_MODAL', ingredientDetails: data});
+                                                dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
                                             }}>
                                                 <BurgerIngredient key={data._id} {...data} />
                                             </div>
