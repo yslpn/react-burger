@@ -32,6 +32,11 @@ const BurgerConstructor = () => {
         dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
     }
 
+    const delHandler = (elem) => {
+        dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
+        dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
+    }
+
     const [, dropTarget] = useDrop({
         accept: "ingredient",
         drop(itemId) {
@@ -55,6 +60,7 @@ const BurgerConstructor = () => {
                     isLocked={lock}
                     text={name}
                     price={data.price}
+                    handleClose={() => delHandler(data)}
                 />
             </div>
         );
@@ -62,7 +68,7 @@ const BurgerConstructor = () => {
 
     React.useEffect(() => {
         setAmount(orderItems.reduce((acc, i) => i.type === 'bun' ? acc + (i.price * 2) : acc + i.price, 0));
-    }, [orderItems]);
+    }, [ingredientsData, orderItems]);
 
     return (
         <div
