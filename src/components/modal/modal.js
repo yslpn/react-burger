@@ -13,7 +13,7 @@ const Modal = (props) => {
         <ModalOverlay close={props.close}>
             <div className={styles.modal}>
                 <button type="button" aria-label="Закрыть" className={styles['modal__close-btn']}
-                    onClick={(e) => { dispatch({type: 'CLOSE_MODAL'}); }}
+                    onClick={(e) => { dispatch({ type: 'CLOSE_MODAL' }); }}
                 >
                     <CloseIcon type="primary" />
                 </button>

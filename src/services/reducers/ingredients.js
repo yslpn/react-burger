@@ -38,7 +38,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         case DECREASE_COUNTER: {
             return {
                 ...state,
-                ingredientsData: [...state.ingredientsData, action.ingredient.__v -= 1],              
+                ingredientsData: [...state.ingredientsData, action.ingredient.__v -= 1],
             };
         }
         default: {

@@ -7,4 +7,4 @@ export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     modal: modalReducer,
     order: orderReducer
-}) 
+})

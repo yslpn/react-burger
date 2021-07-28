@@ -9,7 +9,7 @@ const IngredientDetails = () => {
     return (
         <div className={styles.details}>
             <h3 className={styles['details__header']}>Детали ингредиента</h3>
-            <img src={ingredientDetails.image_large} alt={ingredientDetails.name} width="420" height="240"/>
+            <img src={ingredientDetails.image_large} alt={ingredientDetails.name} width="420" height="240" />
             <p className={styles['details__name']}>{ingredientDetails.name}</p>
             <ul className={styles['details__list']}>
                 <li className={styles['details__list-item']}>

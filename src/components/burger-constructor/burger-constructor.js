@@ -5,9 +5,9 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop, useDrag } from "react-dnd";
-import { makeOrder } from '../../services/actions/order';
+import { makeOrder, dropToCart } from '../../services/actions/order';
 
-const GetBurgerElem = ({elem, index, lock, position, moveIngredient}) => {
+const GetBurgerElem = ({ elem, index, lock, position, moveIngredient }) => {
     const dispatch = useDispatch();
 
     let name = elem.name;
@@ -72,7 +72,7 @@ const GetBurgerElem = ({elem, index, lock, position, moveIngredient}) => {
     drag(drop(ref));
 
     return (
-        <div ref={ref} className={styles.burger__item} key={index} style={ { opacity }}>
+        <div ref={ref} className={styles.burger__item} key={index} style={{ opacity }}>
             {position ? null : <DragIcon type="secondary" />}
             <ConstructorElement
                 thumbnail={elem.image_mobile}
@@ -98,7 +98,7 @@ const BurgerConstructor = () => {
 
     const moveIngredient = (dragIndex, hoverIndex) => {
         const dragIngredient = orderItems[dragIndex];
-        if(dragIngredient.type === 'bun') {
+        if (dragIngredient.type === 'bun') {
             return;
         }
         const newOrderItems = [...orderItems];
@@ -108,25 +108,10 @@ const BurgerConstructor = () => {
         dispatch({ type: 'ADD_FULL_ORDER_LIST', orderItems: newOrderItems });
     }
 
-    const onDropHandler = (a) => {
-        const item = ingredientsData.find(i => i._id === a._id);
-        if (item.type === 'bun') {
-            orderItems.map((elem) => {
-                if (elem.type === 'bun') {
-                    dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
-                    dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
-                }
-                return null;
-            })
-        }
-        dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
-        dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
-    };
-
     const [, dropTarget] = useDrop({
         accept: "ingredient",
         drop(itemId) {
-            onDropHandler(itemId);
+            dispatch(dropToCart(itemId, ingredientsData, orderItems));
         },
     });
 
@@ -141,7 +126,7 @@ const BurgerConstructor = () => {
             <section className={styles.burger}>
                 <div>
                     <div className={styles.burger__head}>
-                        {orderItems.map((elem, index) => elem.type === 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={true} position={'top'} moveIngredient={moveIngredient}/> : null)}
+                        {orderItems.map((elem, index) => elem.type === 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={true} position={'top'} moveIngredient={moveIngredient} /> : null)}
                     </div>
                     <div className={styles.burger__list}>
                         {orderItems.map((elem, index) => elem.type !== 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={false} moveIngredient={moveIngredient} /> : null)}

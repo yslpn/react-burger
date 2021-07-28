@@ -7,20 +7,20 @@ import { useDispatch } from 'react-redux';
 
 const ModalOverlay = (props) => {
     const dispatch = useDispatch();
-    
+
     const node = React.useRef();
     const modalRoot = document.getElementById('modal');
 
     const closeWithEscape = (e) => {
         if (e.keyCode === 27) {
-            dispatch({type: 'CLOSE_MODAL'});
+            dispatch({ type: 'CLOSE_MODAL' });
         }
         return null;
     };
 
     const closeWithClick = (e) => {
         if (node.current === e.target) {
-            dispatch({type: 'CLOSE_MODAL'});
+            dispatch({ type: 'CLOSE_MODAL' });
         }
         return null;
     };

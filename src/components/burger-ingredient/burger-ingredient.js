@@ -5,9 +5,9 @@ import { useDrag } from "react-dnd";
 
 const BurgerIngredient = (data) => {
     const { _id } = data;
-    const [{isDrag}, dragRef] = useDrag({
+    const [{ isDrag }, dragRef] = useDrag({
         type: "ingredient",
-        item: {_id},
+        item: { _id },
         collect: monitor => ({
             isDrag: monitor.isDragging()
         })

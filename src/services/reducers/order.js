@@ -25,7 +25,7 @@ export const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 modalIsOpened: false,
-                orderItems: removeItemOnce(state.orderItems, action.orderItems),     
+                orderItems: removeItemOnce(state.orderItems, action.orderItems),
             };
         }
         case CLEAR_ORDER_ITEMS: {

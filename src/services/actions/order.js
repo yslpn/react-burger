@@ -38,3 +38,20 @@ export const makeOrder = (sendData) => {
         }
     }
 };
+
+export const dropToCart = (itemId, ingredientsData, orderItems) => {
+    return function (dispatch) {
+        const item = ingredientsData.find(i => i._id === itemId._id);
+        if (item.type === 'bun') {
+            orderItems.map((elem) => {
+                if (elem.type === 'bun') {
+                    dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
+                    dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
+                }
+                return null;
+            })
+        }
+        dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
+        dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
+    }
+};
