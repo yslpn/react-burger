@@ -50,7 +50,6 @@
     width: 100%;
     max-width: 568px;
     composes: ml-2 from global;
-
 }
 
 .burger__item>svg {

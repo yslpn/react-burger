@@ -1,7 +1,6 @@
-import { ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER, CLEAR_ORDER_ITEMS } from '../actions/order';
+import { ADD_ITEM_TO_ORDER, REMOVE_ITEM_FROM_ORDER, CLEAR_ORDER_ITEMS, ADD_FULL_ORDER_LIST } from '../actions/order';
 
 const initialState = {
-    orderAmount: 0,
     orderItems: []
 }
 
@@ -32,8 +31,13 @@ export const orderReducer = (state = initialState, action) => {
         case CLEAR_ORDER_ITEMS: {
             return {
                 ...state,
-                orderItems: [],
-                orderAmount: 0
+                orderItems: []
+            };
+        }
+        case ADD_FULL_ORDER_LIST: {
+            return {
+                ...state,
+                orderItems: action.orderItems
             };
         }
         default: {

@@ -3,6 +3,7 @@ import { apiURL } from '../../utils/constants';
 export const ADD_ITEM_TO_ORDER = 'ADD_ITEM_TO_ORDER';
 export const REMOVE_ITEM_FROM_ORDER = 'REMOVE_ITEM_FROM_ORDER';
 export const CLEAR_ORDER_ITEMS = 'CLEAR_ORDER_ITEMS';
+export const ADD_FULL_ORDER_LIST = 'ADD_FULL_ORDER_LIST';
 
 const sendResource = (url, data) => {
     return fetch(`${url}`, {
