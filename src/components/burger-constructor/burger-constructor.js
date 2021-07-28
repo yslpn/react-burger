@@ -7,13 +7,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop, useDrag } from "react-dnd";
 import { makeOrder } from '../../services/actions/order';
 
-const GetBurgerElem = (props) => {
+const GetBurgerElem = ({elem, index, lock, position, moveIngredient}) => {
     const dispatch = useDispatch();
 
-    let name = props.elem.name;
-    if (props.position === 'top') {
+    let name = elem.name;
+    if (position === 'top') {
         name += ' (верх)';
-    } else if (props.position === 'bottom') {
+    } else if (position === 'bottom') {
         name += ' (низ)';
     }
 
@@ -25,8 +25,9 @@ const GetBurgerElem = (props) => {
             if (!ref.current) {
                 return;
             }
-            const dragIndex = item.id;
-            const hoverIndex = props.index;
+
+            const dragIndex = item.index;
+            const hoverIndex = index;
 
             if (dragIndex === hoverIndex) {
                 return;
@@ -43,9 +44,9 @@ const GetBurgerElem = (props) => {
                 return;
             }
 
-            props.moveIngredient(dragIndex, hoverIndex);
+            moveIngredient(dragIndex, hoverIndex);
 
-            item.id = hoverIndex;
+            item.index = hoverIndex;
         }
     })
 
@@ -53,8 +54,7 @@ const GetBurgerElem = (props) => {
         {
             type: 'sort',
             item: () => {
-                const id = props.index;
-                return { id }
+                return { index };
             },
             collect: (monitor) => ({
                 isDragging: monitor.isDragging()
@@ -72,15 +72,15 @@ const GetBurgerElem = (props) => {
     drag(drop(ref));
 
     return (
-        <div ref={ref} className={styles.burger__item} key={props.index} style={ { opacity }}>
-            {props.position ? null : <DragIcon type="secondary" />}
+        <div ref={ref} className={styles.burger__item} key={index} style={ { opacity }}>
+            {position ? null : <DragIcon type="secondary" />}
             <ConstructorElement
-                thumbnail={props.elem.image_mobile}
-                type={props.position}
-                isLocked={props.lock}
+                thumbnail={elem.image_mobile}
+                type={position}
+                isLocked={lock}
                 text={name}
-                price={props.elem.price}
-                handleClose={() => delHandler(props.elem)}
+                price={elem.price}
+                handleClose={() => delHandler(elem)}
             />
         </div>
     );
