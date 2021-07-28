@@ -55,3 +55,10 @@ export const dropToCart = (itemId, ingredientsData, orderItems) => {
         dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
     }
 };
+
+export const delElem = (elem) => {
+    return function (dispatch) {
+        dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
+        dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
+    }
+};

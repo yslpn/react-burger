@@ -5,7 +5,7 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop, useDrag } from "react-dnd";
-import { makeOrder, dropToCart } from '../../services/actions/order';
+import { makeOrder, dropToCart, delElem } from '../../services/actions/order';
 
 const GetBurgerElem = ({ elem, index, lock, position, moveIngredient }) => {
     const dispatch = useDispatch();
@@ -63,11 +63,6 @@ const GetBurgerElem = ({ elem, index, lock, position, moveIngredient }) => {
         }
     )
 
-    const delHandler = (elem) => {
-        dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
-        dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
-    }
-
     const opacity = isDragging ? 0.5 : 1;
     drag(drop(ref));
 
@@ -80,7 +75,7 @@ const GetBurgerElem = ({ elem, index, lock, position, moveIngredient }) => {
                 isLocked={lock}
                 text={name}
                 price={elem.price}
-                handleClose={() => delHandler(elem)}
+                handleClose={() => dispatch(delElem(elem))}
             />
         </div>
     );
