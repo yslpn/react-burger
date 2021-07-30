@@ -1,37 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './ingredient-details.module.css';
+import { useSelector } from 'react-redux';
 
-const IngredientDetails = (props) => {
+const IngredientDetails = () => {
+    const { ingredientDetails } = useSelector(store => ({
+        ingredientDetails: store.modal.ingredientDetails
+    }));
+
     return (
         <div className={styles.details}>
             <h3 className={styles['details__header']}>Детали ингредиента</h3>
-            <img src={props.data.image_large} alt={props.data.name} width="420" height="240"/>
-            <p className={styles['details__name']}>{props.data.name}</p>
+            <img src={ingredientDetails.image_large} alt={ingredientDetails.name} width="420" height="240" />
+            <p className={styles['details__name']}>{ingredientDetails.name}</p>
             <ul className={styles['details__list']}>
                 <li className={styles['details__list-item']}>
                     <p className={styles['details__item-text']}>Калории, ккал</p>
-                    <p className={`${styles['details__item-text']} ${styles['details__item-text--data']}`}>{props.data.calories}</p>
+                    <p className={`${styles['details__item-text']} ${styles['details__item-text--data']}`}>{ingredientDetails.calories}</p>
                 </li>
                 <li className={styles['details__list-item']}>
                     <p className={styles['details__item-text']}>Белки, г</p>
-                    <p className={`${styles['details__item-text']} ${styles['details__item-text--data']}`}>{props.data.proteins}</p>
+                    <p className={`${styles['details__item-text']} ${styles['details__item-text--data']}`}>{ingredientDetails.proteins}</p>
                 </li>
                 <li className={styles['details__list-item']}>
                     <p className={styles['details__item-text']}>Жиры, г</p>
-                    <p className={`${styles['details__item-text']} ${styles['details__item-text--data']}`}>{props.data.fat}</p>
+                    <p className={`${styles['details__item-text']} ${styles['details__item-text--data']}`}>{ingredientDetails.fat}</p>
                 </li>
                 <li className={styles['details__list-item']}>
                     <p className={styles['details__item-text']}>Углеводы, г</p>
-                    <p className={`${styles['details__item-text']} ${styles['details__item-text--data']}`}>{props.data.carbohydrates}</p>
+                    <p className={`${styles['details__item-text']} ${styles['details__item-text--data']}`}>{ingredientDetails.carbohydrates}</p>
                 </li>
             </ul>
         </div>
     );
 }
-
-IngredientDetails.propTypes = {
-    data: PropTypes.object.isRequired
-};
 
 export default IngredientDetails;

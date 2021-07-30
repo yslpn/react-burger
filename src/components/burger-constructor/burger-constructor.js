@@ -3,90 +3,131 @@ import styles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop, useDrag } from "react-dnd";
+import { makeOrder, dropToCart, delElem } from '../../services/actions/order';
 
-import { BurgerContext } from '../../services/burger-context';
+const GetBurgerElem = ({ elem, index, lock, position, moveIngredient }) => {
+    const dispatch = useDispatch();
 
-const BurgerConstructor = () => {
-    const [modalStatus, setModalStatus] = React.useState(false);
-    const toggleModal = () => setModalStatus(!modalStatus);
-    const { data } = React.useContext(BurgerContext);
-    const [modalData, setModalData] = React.useState(undefined);
+    let name = elem.name;
+    if (position === 'top') {
+        name += ' (верх)';
+    } else if (position === 'bottom') {
+        name += ' (низ)';
+    }
 
-    const bun = data.filter(i => i.type === 'bun')[0];
-    const filteredIngredients = data.filter(i => i.type !== 'bun');
-    const amount = filteredIngredients.reduce((acc, i) => acc + i.price, 0) + bun.price * 2;
+    const ref = React.useRef(null);
 
-    let cart = { "ingredients": [...filteredIngredients, bun, bun].map((item) => item._id) }
+    const [, drop] = useDrop({
+        accept: 'sort',
+        hover: (item, monitor) => {
+            if (!ref.current) {
+                return;
+            }
 
-    const sendResource = async (url, data) => {
-        const apiURL = 'https://norma.nomoreparties.space/api';
+            const dragIndex = item.index;
+            const hoverIndex = index;
 
-        const res = await fetch(`${apiURL}${url}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const clientOffset = monitor.getClientOffset();
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+
+            moveIngredient(dragIndex, hoverIndex);
+
+            item.index = hoverIndex;
+        }
+    })
+
+    const [{ isDragging }, drag] = useDrag(
+        {
+            type: 'sort',
+            item: () => {
+                return { index };
             },
-            body: JSON.stringify(data)
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`Could not fetch ${url}, received ${response.status}`)
-                };
-                return response.json();
+            collect: (monitor) => ({
+                isDragging: monitor.isDragging()
             })
-            .then((json) => {
-                return json;
-            })
-            .catch((error) => {
-                console.error('Ошибка:', error);
-            });
 
-        return await res;
-    };
-
-    const makeOrder = async () => {
-        try {
-            const res = await sendResource('/orders', cart);
-            setModalData(res);
-        } catch (err) {
-            console.log(err);
         }
-    };
+    )
 
-    const getBurgerElem = (data, lock, position) => {
-        let name = data.name;
-        if (position === 'top') {
-            name += ' (верх)';
-        } else if (position === 'bottom') {
-            name += ' (низ)';
-        }
-
-        return (
-            <div className={styles.burger__item} key={data._id}>
-                {position ? null : <DragIcon type="secondary" />}
-                <ConstructorElement
-                    thumbnail={data.image_mobile}
-                    type={position}
-                    isLocked={lock}
-                    text={name}
-                    price={data.price}
-                />
-            </div>
-        );
-    };
+    const opacity = isDragging ? 0.5 : 1;
+    drag(drop(ref));
 
     return (
-        <>
+        <div ref={ref} className={styles.burger__item} key={index} style={{ opacity }}>
+            {position ? null : <DragIcon type="secondary" />}
+            <ConstructorElement
+                thumbnail={elem.image_mobile}
+                type={position}
+                isLocked={lock}
+                text={name}
+                price={elem.price}
+                handleClose={() => dispatch(delElem(elem))}
+            />
+        </div>
+    );
+};
+
+const BurgerConstructor = () => {
+    const dispatch = useDispatch();
+    const { modalIsOpened, orderDetails, orderItems, ingredientsData } = useSelector(store => ({
+        modalIsOpened: store.modal.modalIsOpened,
+        orderDetails: store.modal.orderDetails,
+        orderItems: store.order.orderItems,
+        ingredientsData: store.ingredients.ingredientsData
+    }));
+    const [amount, setAmount] = React.useState(0);
+
+    const moveIngredient = (dragIndex, hoverIndex) => {
+        const dragIngredient = orderItems[dragIndex];
+        if (dragIngredient.type === 'bun') {
+            return;
+        }
+        const newOrderItems = [...orderItems];
+        newOrderItems.splice(dragIndex, 1);
+        newOrderItems.splice(hoverIndex, 0, dragIngredient);
+
+        dispatch({ type: 'ADD_FULL_ORDER_LIST', orderItems: newOrderItems });
+    }
+
+    const [, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop(itemId) {
+            dispatch(dropToCart(itemId, ingredientsData, orderItems));
+        },
+    });
+
+    React.useEffect(() => {
+        setAmount(orderItems.reduce((acc, i) => i.type === 'bun' ? acc + (i.price * 2) : acc + i.price, 0));
+    }, [ingredientsData, orderItems]);
+
+    return (
+        <div
+            ref={dropTarget}
+        >
             <section className={styles.burger}>
                 <div>
                     <div className={styles.burger__head}>
-                        {getBurgerElem(bun, true, "top")}
+                        {orderItems.map((elem, index) => elem.type === 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={true} position={'top'} moveIngredient={moveIngredient} /> : null)}
                     </div>
                     <div className={styles.burger__list}>
-                        {filteredIngredients.map((elems) => getBurgerElem(elems, false))}
+                        {orderItems.map((elem, index) => elem.type !== 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={false} moveIngredient={moveIngredient} /> : null)}
                     </div>
                     <div className={styles.burger__footer}>
-                        {getBurgerElem(bun, true, "bottom")}
+                        {orderItems.map((elem, index) => elem.type === 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={true} position={'bottom'} moveIngredient={moveIngredient} /> : null)}
                     </div>
                 </div>
                 <div className={styles.burger__order}>
@@ -94,19 +135,31 @@ const BurgerConstructor = () => {
                         {amount}&nbsp;<CurrencyIcon type="primary" />
                     </p>
                     <Button type="primary" size="large" onClick={() => {
-                        toggleModal();
-                        makeOrder();
+                        let { bun, ingredients } = false;
+
+                        orderItems.map((i) => {
+                            if (i.type === 'bun') {
+                                bun = true;
+                            } else if (i.type !== 'bun') {
+                                ingredients = true;
+                            }
+                            return null;
+                        })
+
+                        if (bun && ingredients) {
+                            dispatch(makeOrder(orderItems))
+                        };
                     }}>
                         Оформить заказ
                     </Button>
                 </div>
             </section>
-            { modalStatus && modalData &&
-                <Modal status={modalStatus} close={toggleModal}>
-                    <OrderDetails data={modalData} />
+            {modalIsOpened && orderDetails &&
+                <Modal>
+                    <OrderDetails />
                 </Modal>
             }
-        </>
+        </div>
     );
 }
 

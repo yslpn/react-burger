@@ -11,3 +11,7 @@
 .main__content-item {
   width: 50%;
 }
+
+.main__loading {
+  text-align: center;
+}

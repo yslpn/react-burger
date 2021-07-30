@@ -4,14 +4,16 @@ import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 
+import { useDispatch } from 'react-redux';
+
 const Modal = (props) => {
-    const closeModal = (e) => props.close && props.close(e);
+    const dispatch = useDispatch();
 
     return (
-        <ModalOverlay status={props.status} close={props.close}>
+        <ModalOverlay close={props.close}>
             <div className={styles.modal}>
                 <button type="button" aria-label="Закрыть" className={styles['modal__close-btn']}
-                    onClick={(e) => { closeModal(e) }}
+                    onClick={(e) => { dispatch({ type: 'CLOSE_MODAL' }); }}
                 >
                     <CloseIcon type="primary" />
                 </button>
@@ -22,9 +24,7 @@ const Modal = (props) => {
 }
 
 Modal.propTypes = {
-    status: PropTypes.bool.isRequired,
     children: PropTypes.element.isRequired,
-    close: PropTypes.func.isRequired
 };
 
 export default Modal;

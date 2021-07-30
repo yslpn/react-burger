@@ -50,7 +50,7 @@
     width: 100%;
     max-width: 568px;
     composes: ml-2 from global;
-
+    transition: all 0.15 ease-in-out;
 }
 
 .burger__item>svg {
