@@ -1,0 +1,61 @@
+.wrapper {
+    height: 80vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    width: 480px;
+    flex-direction: column;
+    gap: 24px;
+    composes: mb-20 from global;
+}
+
+.heading {
+    composes: mb-6 from global;
+}
+
+.input_container {
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    composes: pl-6 pr-6 mb-6 from global;
+}
+
+:global(.input) {
+    width: 480px;
+}
+
+.input_control {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    composes: pl-6 from global;
+}
+
+.button {
+    margin: 0 auto;
+}
+
+.text {
+    composes: text text_type_main-default mb-4 from global;
+}
+
+.text:last-of-type {
+    margin-bottom: 0;
+}
+
+.link {
+    color: #4C4CFF;
+    text-decoration: none;
+}
+
+.error {
+    color: var(--colors-interface-error)
+}
