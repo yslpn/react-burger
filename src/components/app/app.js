@@ -1,7 +1,18 @@
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import { Route, Switch } from 'react-router-dom';
-import { LoginPage, MainPage, NotFoundPage, ResetPassPage, RegPage, ProfilePage, IngredientsPage, ForgotPassPage } from '../../pages';
+import ProtectedRoute from '../protected-route/protected-route';
+import LoggedRoute from '../logged-route/logged-route';
+import { 
+  LoginPage, 
+  MainPage, 
+  NotFoundPage, 
+  ResetPassPage, 
+  RegPage, 
+  ProfilePage, 
+  IngredientsPage, 
+  ForgotPassPage,
+  OrdersPage } from '../../pages';
 
 function App() {
   return (
@@ -9,21 +20,24 @@ function App() {
       <AppHeader />
       <main className={styles.main}>
         <Switch>
-          <Route path="/login" exact>
+          <LoggedRoute path="/login" exact>
             <LoginPage />
-          </Route>
-          <Route path="/register" exact>
+          </LoggedRoute>
+          <LoggedRoute path="/register" exact>
             <RegPage />
-          </Route>
-          <Route path="/forgot-password" exact>
+          </LoggedRoute>
+          <LoggedRoute path="/forgot-password" exact>
             <ForgotPassPage />
-          </Route>
-          <Route path="/reset-password" exact>
+          </LoggedRoute>
+          <LoggedRoute path="/reset-password" exact>
             <ResetPassPage />
-          </Route>
-          <Route path="/profile" exact>
+          </LoggedRoute>
+          <ProtectedRoute path="/profile" exact>
             <ProfilePage />
-          </Route>
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders" exact>
+            <OrdersPage />
+          </ProtectedRoute>
           <Route path="/ingredients/:id" exact>
             <IngredientsPage />
           </Route>
