@@ -1,29 +1,39 @@
-import React from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { Route, Switch } from 'react-router-dom';
+import { LoginPage, MainPage, NotFoundPage, ResetPassPage, RegPage, ProfilePage, IngredientsPage, ForgotPassPage } from '../../pages';
 
 function App() {
   return (
     <div className="app">
       <AppHeader />
       <main className={styles.main}>
-        <div className={`${styles.container} ${styles.main__wrapper}`}>
-          <h1 className={`${styles.head} text text_type_main-large mt-10 mb-5`}>Собери бургер</h1>
-          <div className={styles['main__content-items']}>
-            <DndProvider backend={HTML5Backend}>
-              <div className={styles['main__content-item']}>
-                <BurgerIngredients />
-              </div>
-              <div className={styles['main__content-item']}>
-                <BurgerConstructor />
-              </div>
-            </DndProvider>
-          </div>
-        </div>
+        <Switch>
+          <Route path="/login" exact>
+            <LoginPage />
+          </Route>
+          <Route path="/register" exact>
+            <RegPage />
+          </Route>
+          <Route path="/forgot-password" exact>
+            <ForgotPassPage />
+          </Route>
+          <Route path="/reset-password" exact>
+            <ResetPassPage />
+          </Route>
+          <Route path="/profile" exact>
+            <ProfilePage />
+          </Route>
+          <Route path="/ingredients/:id" exact>
+            <IngredientsPage />
+          </Route>
+          <Route path="/" exact>
+            <MainPage />
+          </Route>
+          <Route>
+            <NotFoundPage />
+          </Route>
+        </Switch>
       </main>
     </div >
   );

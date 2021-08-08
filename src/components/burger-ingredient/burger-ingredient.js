@@ -1,9 +1,10 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-ingredient.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
 
-const BurgerIngredient = (data) => {
+const BurgerIngredient = React.memo((data) => {
     const { _id } = data;
     const [{ isDrag }, dragRef] = useDrag({
         type: "ingredient",
@@ -29,7 +30,7 @@ const BurgerIngredient = (data) => {
             </button>
         </div>
     );
-}
+});
 
 BurgerIngredient.propTypes = {
     __v: PropTypes.number.isRequired,
