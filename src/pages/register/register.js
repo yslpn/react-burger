@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './register.module.css';
-import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from 'services/actions/login';
@@ -15,7 +15,6 @@ const RegPage = () => {
     const dispatch = useDispatch();
     const onSubmit = async e => {
         e.preventDefault();
-        console.log('super');
         let res = await dispatch(register(formData));
         if (res.ok) {
             history.replace('/login');
@@ -42,7 +41,7 @@ const RegPage = () => {
                     onChange={onChange}
                 />
 
-                <PasswordInput placeholder="Пароль" name="password" value={formData.password} onChange={onChange} />
+                <Input placeholder="Пароль" name="password" type="password" value={formData.password} onChange={onChange} />
 
                 <span className={styles.button}>
                     <Button>Зарегистрироваться</Button>
