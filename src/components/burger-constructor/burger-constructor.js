@@ -6,6 +6,7 @@ import OrderDetails from '../order-details/order-details';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop, useDrag } from "react-dnd";
 import { makeOrder, dropToCart, delElem } from '../../services/actions/order';
+import { useHistory } from 'react-router-dom';
 
 const GetBurgerElem = ({ elem, index, lock, position, moveIngredient }) => {
     const dispatch = useDispatch();
@@ -82,6 +83,10 @@ const GetBurgerElem = ({ elem, index, lock, position, moveIngredient }) => {
 };
 
 const BurgerConstructor = () => {
+    let history = useHistory();
+    const { userLogged } = useSelector(store => ({
+        userLogged: store.login.userLogged
+    }));
     const dispatch = useDispatch();
     const { modalIsOpened, orderDetails, orderItems, ingredientsData } = useSelector(store => ({
         modalIsOpened: store.modal.modalIsOpened,
@@ -135,6 +140,10 @@ const BurgerConstructor = () => {
                         {amount}&nbsp;<CurrencyIcon type="primary" />
                     </p>
                     <Button type="primary" size="large" onClick={() => {
+                        if(!userLogged) {
+                            history.push('/login');
+                            return;
+                        }
                         let { bun, ingredients } = false;
 
                         orderItems.map((i) => {
@@ -148,6 +157,12 @@ const BurgerConstructor = () => {
 
                         if (bun && ingredients) {
                             dispatch(makeOrder(orderItems))
+                            dispatch({
+                                type: 'CLEAR_ORDER_ITEMS'
+                            })
+                            dispatch({
+                                type: 'RESET_COUNTER'
+                            })
                         };
                     }}>
                         Оформить заказ
