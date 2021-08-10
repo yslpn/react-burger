@@ -1,7 +1,7 @@
-import React from 'react';
+import { useRef, useState, useEffect } from 'react';
 import styles from './login.module.css';
 import { Link, Redirect } from 'react-router-dom';
-import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../services/actions/login';
 
@@ -10,7 +10,7 @@ const LoginPage = () => {
         userLogged: store.login.userLogged
     }));
     const dispatch = useDispatch();
-    const [formData, setFormData] = React.useState({ email: '', password: '' });
+    const [formData, setFormData] = useState({ email: '', password: '' });
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -20,13 +20,26 @@ const LoginPage = () => {
             dispatch(login(formData));
         }
     };
+
+    const passwordRef = useRef(null);
+    const emailRef = useRef(null);
+    useEffect(() => {
+        passwordRef.current.setAttribute("autocomplete", "current-password");
+        emailRef.current.setAttribute("autocomplete", "email");
+    }, []);
+
+    const [isShowPass, setPass] = useState(false);
+    const onIconClick = () => {
+        setPass(!isShowPass);
+    }
+
     return (
         userLogged ? <Redirect to={'/'} /> :
             <div className={styles.wrapper}>
                 <form className={styles.form} onSubmit={onSubmit}>
                     <h1 className={styles.heading}>Вход</h1>
-                    <Input name="email" type="email" value={formData.email} placeholder="E-mail" onChange={onChange} />
-                    <PasswordInput name="password" value={formData.password} onChange={onChange} />
+                    <Input ref={emailRef} name="email" type="email" value={formData.email} placeholder="E-mail" onChange={onChange} />
+                    <Input onIconClick={onIconClick} icon={isShowPass ? 'HideIcon' : 'ShowIcon'} ref={passwordRef} name="password" type={isShowPass ? 'text' : 'password'} value={formData.password} placeholder="Пароль" onChange={onChange} />
                     <span className={styles.button}>
                         <Button>Войти</Button>
                     </span>
