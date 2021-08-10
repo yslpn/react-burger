@@ -1,25 +1,40 @@
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import ProtectedRoute from '../protected-route/protected-route';
 import LoggedRoute from '../logged-route/logged-route';
-import { 
-  LoginPage, 
-  MainPage, 
-  NotFoundPage, 
-  ResetPassPage, 
-  RegPage, 
-  ProfilePage, 
-  IngredientsPage, 
+import {
+  LoginPage,
+  MainPage,
+  NotFoundPage,
+  RegPage,
+  ProfilePage,
+  IngredientPage,
   ForgotPassPage,
-  OrdersPage } from '../../pages';
+  OrdersPage,
+  FeedPage
+} from '../../pages';
+
+import { useEffect } from 'react';
+import { getUser } from '../../services/actions/login';
+import { useDispatch } from 'react-redux';
+import { getIngredients } from '../../services/actions/ingredients';
 
 function App() {
+  const dispatch = useDispatch();
+  let location = useLocation();
+  let background = location.state && location.state.background;
+
+  useEffect(() => {
+    dispatch(getUser());
+    dispatch(getIngredients());
+  }, [dispatch]);
+
   return (
     <div className="app">
       <AppHeader />
       <main className={styles.main}>
-        <Switch>
+        <Switch location={background || location}>
           <LoggedRoute path="/login" exact>
             <LoginPage />
           </LoggedRoute>
@@ -30,7 +45,7 @@ function App() {
             <ForgotPassPage />
           </LoggedRoute>
           <LoggedRoute path="/reset-password" exact>
-            <ResetPassPage />
+            <ForgotPassPage />
           </LoggedRoute>
           <ProtectedRoute path="/profile" exact>
             <ProfilePage />
@@ -39,15 +54,22 @@ function App() {
             <OrdersPage />
           </ProtectedRoute>
           <Route path="/ingredients/:id" exact>
-            <IngredientsPage />
+            <IngredientPage />
           </Route>
           <Route path="/" exact>
             <MainPage />
+          </Route>
+          <Route path="/feed" exact>
+            <FeedPage />
           </Route>
           <Route>
             <NotFoundPage />
           </Route>
         </Switch>
+
+        {background && (
+          <Route path='/ingredients/:id' children={<MainPage />} />
+        )}
       </main>
     </div >
   );
