@@ -17,7 +17,7 @@ const AppHeader = () => {
                         <span className="ml-2" >Конструктор</span>
                     </Button>
                 </NavLink>
-                <NavLink to="/profile/orders" className={styles['header__nav-item']} activeClassName={`${styles['header__nav-item--active']}`}>
+                <NavLink to="/feed" className={styles['header__nav-item']} activeClassName={`${styles['header__nav-item--active']}`}>
                     <Button type="secondary" size="medium">
                         <ListIcon />
                         <span className="ml-2">Лента&nbsp;заказов</span>
