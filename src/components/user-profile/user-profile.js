@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styles from './user-profile.module.css';
 import { NavLink } from 'react-router-dom';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { logout }  from '../../services/actions/login';
+import { logout, updateUser }  from '../../services/actions/login';
 
 const UserProfile = () => {
     const { name, email } = useSelector(store => ({
@@ -21,8 +21,7 @@ const UserProfile = () => {
     const onSubmit = (e) => {
         e.preventDefault()
         if (formData.name && formData.email) {
-            console.log(formData);
-            //дописать
+            dispatch(updateUser(formData));
             setChanged(false);
         }
     };
@@ -40,6 +39,16 @@ const UserProfile = () => {
     const onClick = () => {
         dispatch(logout());
     }
+
+    const passwordRef = useRef(null);
+    const emailRef = useRef(null);
+    const usernameRef = useRef(null);
+
+    useEffect(() => {
+        passwordRef.current.setAttribute("autocomplete", "current-password");
+        emailRef.current.setAttribute("autocomplete", "email");
+        usernameRef.current.setAttribute("autocomplete", "username");
+    }, []);
 
     return (
         <div className={styles.wrapper}>
@@ -60,9 +69,9 @@ const UserProfile = () => {
                 </p>
             </div>
             <form className={styles.user_info} onSubmit={onSubmit}>
-                <Input onChange={onChange} icon={'EditIcon'} name="name" type="text" value={formData.name} placeholder="Имя" />
-                <Input onChange={onChange} icon={'EditIcon'} name="email" type="email" value={formData.email} placeholder="Логин" />
-                <Input onChange={onChange} icon={'EditIcon'} name="password" type="password" value={formData.password} placeholder="Пароль" />
+                <Input ref={usernameRef} onChange={onChange} icon={'EditIcon'} name="name" type="text" value={formData.name} placeholder="Имя" />
+                <Input ref={emailRef} onChange={onChange} icon={'EditIcon'} name="email" type="email" value={formData.email} placeholder="Логин" />
+                <Input ref={passwordRef} onChange={onChange} icon={'EditIcon'} name="password" type="password" autocomplete="current-password" value={formData.password} placeholder="Пароль" />
 
                 {isChanged && formData.password !== '' &&
                     <span className={styles.button}>
