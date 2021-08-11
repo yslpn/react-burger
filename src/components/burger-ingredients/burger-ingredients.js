@@ -2,17 +2,13 @@ import React from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient.js';
-import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 const BurgerIngredients = () => {
     let location = useLocation();
     const dispatch = useDispatch();
-    const { modalIsOpened, ingredientDetails, ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(store => ({
-        modalIsOpened: store.modal.modalIsOpened,
-        ingredientDetails: store.modal.ingredientDetails,
+    const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(store => ({
         ingredientsData: store.ingredients.ingredientsData,
         ingredientsRequest: store.ingredients.ingredientsRequest,
         ingredientsFailed: store.ingredients.ingredientsFailed
@@ -157,11 +153,6 @@ const BurgerIngredients = () => {
                     </div>
                 </div>
             </section>
-            {modalIsOpened && ingredientDetails &&
-                <Modal>
-                    <IngredientDetails />
-                </Modal>
-            }
         </>
     );
 }

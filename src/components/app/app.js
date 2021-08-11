@@ -19,6 +19,8 @@ import { useEffect } from 'react';
 import { getUser } from '../../services/actions/login';
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
+import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 function App() {
   const dispatch = useDispatch();
@@ -68,7 +70,11 @@ function App() {
         </Switch>
 
         {background && (
-          <Route path='/ingredients/:id' children={<MainPage />} />
+          <Route path='/ingredients/:id' children={
+            <Modal>
+              <IngredientDetails />
+            </Modal>
+          } />
         )}
       </main>
     </div >
