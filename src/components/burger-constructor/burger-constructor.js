@@ -108,12 +108,17 @@ const BurgerConstructor = () => {
         dispatch({ type: 'ADD_FULL_ORDER_LIST', orderItems: newOrderItems });
     }
 
-    const [, dropTarget] = useDrop({
+    const [{ isDragOver }, dropTarget] = useDrop({
         accept: "ingredient",
         drop(itemId) {
             dispatch(dropToCart(itemId, ingredientsData, orderItems));
         },
+        collect: (monitor) => ({
+            isDragOver: monitor.isOver(),
+        })
     });
+
+    const border = isDragOver ? '1px dashed #8585AD' : 'none';
 
     React.useEffect(() => {
         setAmount(orderItems.reduce((acc, i) => i.type === 'bun' ? acc + (i.price * 2) : acc + i.price, 0));
@@ -123,7 +128,7 @@ const BurgerConstructor = () => {
         <div
             ref={dropTarget}
         >
-            <section className={styles.burger}>
+            <section className={styles.burger} style={{ border }}>
                 <div>
                     <div className={styles.burger__head}>
                         {orderItems.map((elem, index) => elem.type === 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={true} position={'top'} moveIngredient={moveIngredient} /> : null)}
@@ -140,7 +145,7 @@ const BurgerConstructor = () => {
                         {amount}&nbsp;<CurrencyIcon type="primary" />
                     </p>
                     <Button type="primary" size="large" onClick={() => {
-                        if(!userLogged) {
+                        if (!userLogged) {
                             history.push('/login');
                             return;
                         }
