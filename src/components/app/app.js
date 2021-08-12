@@ -1,6 +1,6 @@
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import ProtectedRoute from '../protected-route/protected-route';
 import LoggedRoute from '../logged-route/logged-route';
 import {
@@ -25,7 +25,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 function App() {
   const dispatch = useDispatch();
   let location = useLocation();
-  let background = location.state && location.state.background;
+  const history = useHistory();
+  let background = history.action === 'PUSH' && location.state && location.state.background;
 
   useEffect(() => {
     dispatch(getUser());
