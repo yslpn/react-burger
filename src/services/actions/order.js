@@ -31,7 +31,6 @@ export const makeOrder = (sendData) => {
     return async function (dispatch) {
         try {
             const res = await sendResource(`${apiURL}/orders`, { "ingredients": sendData });
-            console.log(res);
             dispatch({ type: 'OPEN_MODAL', orderDetails: res });
         } catch (err) {
             console.log(err);
@@ -47,12 +46,18 @@ export const dropToCart = (itemId, ingredientsData, orderItems) => {
                 if (elem.type === 'bun') {
                     dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
                     dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
+                    dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
                 }
                 return null;
             })
+            dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
+            dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
+            dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
+        } else {
+            dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
+            dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
         }
-        dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
-        dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
+
     }
 };
 

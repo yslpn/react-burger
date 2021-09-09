@@ -6,7 +6,6 @@
 
 .details__header {
     height: 64px;
-    align-self: start;
     display: flex;
     align-items: center;
 

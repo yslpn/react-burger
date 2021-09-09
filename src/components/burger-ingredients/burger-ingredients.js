@@ -2,17 +2,13 @@ import React from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient.js';
-import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-
 import { useSelector, useDispatch } from 'react-redux';
-import { getIngredients } from '../../services/actions/ingredients';
+import { Link, useLocation } from 'react-router-dom';
 
 const BurgerIngredients = () => {
+    let location = useLocation();
     const dispatch = useDispatch();
-    const { modalIsOpened, ingredientDetails, ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(store => ({
-        modalIsOpened: store.modal.modalIsOpened,
-        ingredientDetails: store.modal.ingredientDetails,
+    const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector(store => ({
         ingredientsData: store.ingredients.ingredientsData,
         ingredientsRequest: store.ingredients.ingredientsRequest,
         ingredientsFailed: store.ingredients.ingredientsFailed
@@ -60,11 +56,6 @@ const BurgerIngredients = () => {
         }
     };
 
-    React.useEffect(() => {
-        dispatch(getIngredients())
-    }, [dispatch]);
-
-
     if (ingredientsRequest) {
         return <p className={null}>Загрузка</p>
     }
@@ -97,7 +88,13 @@ const BurgerIngredients = () => {
                                         <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
                                             dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
                                         }}>
-                                            <BurgerIngredient key={data._id} {...data} />
+                                            <Link key={data._id} to={{
+                                                pathname: `/ingredients/${data._id}`,
+                                                state: { background: location }
+                                            }} style={{ textDecoration: 'none' }}
+                                            >
+                                                <BurgerIngredient {...data} />
+                                            </Link>
                                         </div>
                                     )
                                 }
@@ -114,8 +111,13 @@ const BurgerIngredients = () => {
                                         return (
                                             <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
                                                 dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
-                                            }}>
-                                                <BurgerIngredient key={data._id} {...data} />
+                                            }}>                                            <Link key={data._id} to={{
+                                                pathname: `/ingredients/${data._id}`,
+                                                state: { background: location }
+                                            }} style={{ textDecoration: 'none' }}
+                                            >
+                                                    <BurgerIngredient key={data._id} {...data} />
+                                                </Link>
                                             </div>
                                         )
                                     }
@@ -134,7 +136,13 @@ const BurgerIngredients = () => {
                                             <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
                                                 dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
                                             }}>
-                                                <BurgerIngredient key={data._id} {...data} />
+                                                <Link key={data._id} to={{
+                                                    pathname: `/ingredients/${data._id}`,
+                                                    state: { background: location }
+                                                }} style={{ textDecoration: 'none' }}
+                                                >
+                                                    <BurgerIngredient key={data._id} {...data} />
+                                                </Link>
                                             </div>
                                         )
                                     }
@@ -145,11 +153,6 @@ const BurgerIngredients = () => {
                     </div>
                 </div>
             </section>
-            {modalIsOpened && ingredientDetails &&
-                <Modal>
-                    <IngredientDetails />
-                </Modal>
-            }
         </>
     );
 }

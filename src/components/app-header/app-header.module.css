@@ -11,7 +11,15 @@
 }
 
 .header__nav-item {
+    text-decoration: none;
     composes: mr-2 from global;
+}
+
+.header__nav-item--active button svg {
+    fill: #fff !important;
+}
+.header__nav-item--active button {
+    color: #fff !important;
 }
 
 .header__nav-item:last-child {

@@ -1,0 +1,46 @@
+.wrapper {
+    display: flex;
+    margin-top: 120px;
+}
+
+.navmenu {
+    width: 320px;
+    composes: mr-15 from global;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    composes: ml-15 from global;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    composes: text text_type_main-medium mb-20 from global;
+}
+
+.link {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    display: block;
+    text-decoration: none;
+    color: var(--text-inactive-color);
+}
+
+.link:hover {
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+.active {
+    color: var(--text-primary-color);
+}
+
+.text {
+    color: var(--text-inactive-color);
+    opacity: 0.4;
+    composes: text text_type_main-default from global;
+}
