@@ -1,0 +1,130 @@
+.card {
+  color: #f2f2f3;
+  background-color: #1c1c21;
+  border-radius: 40px;
+  composes: mt-4 p-6 from global;
+}
+
+.card:first-of-type {
+  margin-top: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  composes: mb-6 from global;
+}
+
+.id {
+  margin: 0;
+  composes: text_type_digits-default from global;
+}
+
+.time {
+  color: #8585ad;
+  composes: text_type_main-default from global;
+}
+
+.title {
+  width: 100%;
+  composes: text_type_main-medium text mb-2 from global;
+}
+
+.status {
+  color: #8585ad;
+  composes: text text_type_main-default mb-6 from global;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingredients {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  composes: list-reset from global;
+}
+
+.ingredients > li {
+  margin-right: -18px;
+}
+
+.ingredients li:nth-child(1) {
+  z-index:5; 
+}
+.ingredients li:nth-child(2) {   
+  z-index:4;  
+}
+.ingredients li:nth-child(3) {
+  z-index:3;  
+}
+.ingredients li:nth-child(4) {   
+  z-index:2;  
+}
+.ingredients li:nth-child(5) {
+  z-index:1;  
+}
+
+.others {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 2px;
+  bottom: 2px;
+  right: 2px;
+  left: 2px;
+  border-radius: 100%;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: inherit;
+  composes: text_type_main-default from global;
+}
+
+.preview {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 100px;
+  background: linear-gradient(to right, #801ab2, #4c4cff);
+  overflow: hidden;
+}
+
+.preview::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  right: 2px;
+  left: 2px;
+  border-radius: 100px;
+  pointer-events: none;
+  background-color: #131316;
+}
+
+.image {
+  max-height: 56px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.price__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  margin-right: 9px;
+  composes: text text_type_digits-default from global;
+}
