@@ -16,7 +16,7 @@ const Modal = (props) => {
                 <button type="button" aria-label="Закрыть" className={styles['modal__close-btn']}
                     onClick={(e) => { 
                         dispatch({ type: 'CLOSE_MODAL' }); 
-                        history.push('/');
+                        history.goBack();
                     }}
                 >
                     <CloseIcon type="primary" />

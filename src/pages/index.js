@@ -8,3 +8,4 @@ export { ForgotPassPage } from './forgot-password';
 export { OrdersPage } from './orders';
 export { IngredientPage } from './igredient';
 export { FeedPage } from './feed';
+export { OrderPage } from './order';

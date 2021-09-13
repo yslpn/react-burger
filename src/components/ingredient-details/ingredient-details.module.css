@@ -13,7 +13,6 @@
     composes: mr-10 from global;
     composes: mb-0 from global;
     composes: ml-10 from global;
-
     composes: text from global;
     composes: text_type_main-large from global;
 }
@@ -21,8 +20,6 @@
 .details__name {
     composes: mt-4 from global;
     composes: mb-8 from global;
-
-
     composes: text from global;
     composes: text_type_main-medium from global;
 }

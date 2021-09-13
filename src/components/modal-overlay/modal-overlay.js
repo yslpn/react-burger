@@ -14,7 +14,7 @@ const ModalOverlay = (props) => {
 
     const closeWithEscape = (e) => {
         if (e.keyCode === 27) {
-            history.push('/');
+            history.goBack();
             dispatch({ type: 'CLOSE_MODAL' });
         }
         return null;
@@ -22,7 +22,7 @@ const ModalOverlay = (props) => {
 
     const closeWithClick = (e) => {
         if (node.current === e.target) {
-            history.push('/');
+            history.goBack();
             dispatch({ type: 'CLOSE_MODAL' });
         }
         return null;
