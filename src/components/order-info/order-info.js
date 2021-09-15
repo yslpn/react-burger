@@ -10,30 +10,22 @@ const OrderInfo = () => {
     const history = useHistory();
     let background = history.action === 'PUSH' && location.state && location.state.background;
 
-    const { ingredientsData, ingredientsRequestSuccess } = useSelector(store => ({
-        ingredientsData: store.ingredients.ingredientsData,
+    const { ingredientsRequestSuccess, ingredientsData, feedOrders, profileOrders  } = useSelector(store => ({
         ingredientsRequestSuccess: store.ingredients.ingredientsRequestSuccess,
+        ingredientsData: store.ingredients.ingredientsData,
+        feedOrders: store.ws.feedOrders,
+        profileOrders: store.ws.profileOrders,
     }));
+
     const { id } = useParams();
-
-    const currentItem = {
-        _id: '613df8693608f0001eb92c42',
-        ingredients: [
-            '60d3b41abdacab0026a733c6',
-            '60d3b41abdacab0026a733cf',
-            '60d3b41abdacab0026a733ce',
-            '60d3b41abdacab0026a733cf',
-            '60d3b41abdacab0026a733c6'
-        ],
-        status: 'done',
-        name: 'Краторный антарианский традиционный-галактический бургер',
-        createdAt: '2021-09-12T12:54:01.182Z',
-        updatedAt: '2021-09-12T12:54:01.262Z',
-        number: 2628
-    }
-
+    const currentItem  = feedOrders.find(i => i.number === parseInt(id)) || profileOrders.find(i => i.number === parseInt(id));
     const filteredIngredients = currentItem.ingredients.map((item) => ingredientsData.find((element) => element._id === item));
-    const price = ingredientsRequestSuccess && filteredIngredients.reduce((prevValue, item) => prevValue + item.price, 0);
+    const price = ingredientsRequestSuccess && filteredIngredients.reduce((prevValue, item) => {
+        if (item.type === 'bun') {
+            return prevValue + (item.price * 2)
+        }
+        return prevValue + item.price
+    }, 0);
 
     return (
         ingredientsRequestSuccess &&
@@ -47,7 +39,7 @@ const OrderInfo = () => {
             <p className={styles.status} style={currentItem.status === 'done' ? { color: '#00CCCC' } : { color: '#F2F2F3' }}>
                 {currentItem.status === 'done' ? 'Выполнен' : currentItem.status === 'canceled' ? 'Отменен' : 'Выполняется'}
             </p>
-            <p className={styles.composition}>
+            <p className={styles.compound}>
                 Состав:
             </p>
             <ul className={styles.ingredients}>
@@ -67,7 +59,7 @@ const OrderInfo = () => {
                                 </p>
                                 <p className={styles.price_wrapper} >
                                     <span className={styles.price} >
-                                        {item.price}
+                                        {item.type === 'bun' ? `2\u00A0x\u00A0${item.price}` : `1\u00A0x\u00A0${item.price}`}
                                     </span>
                                     <CurrencyIcon />
                                 </p>

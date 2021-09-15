@@ -22,9 +22,9 @@ const FeedItem = ({ item, link }) => {
       state: { background: location }
     }} style={{ textDecoration: 'none' }}
     >
-      <article className={styles.card} >
+      <article className={styles.order_item} >
         <header className={styles.header}>
-          <p className={styles.id}>
+          <p className={styles.number}>
             #{number}
           </p>
           <time className={styles.time}>
@@ -34,20 +34,20 @@ const FeedItem = ({ item, link }) => {
         <h2 className={styles.title}>
           {name}
         </h2>
-        <p className={styles.status} style={status === 'done' ? { color: '#F2F2F3' } : { color: '#00CCCC' }}>
+        <p className={styles.status} style={status === 'done' ? { color: '#00CCCC' } : { color: '#F2F2F3' }}>
           {status === 'done' ? 'Выполнен' : status === 'canceled' ? 'Отменен' : 'Выполняется'}
         </p>
-        <div className={styles.content}>
+        <div className={styles.list_wrapper}>
           <ul className={styles.ingredients}>
             {
               filteredIngredients.map((item, index) => (
                 index < 5 ?
-                  <li key={index} className={styles.preview}>
+                  <li key={index} className={styles.ingredinet}>
                       {index === 4 && filteredIngredients.length > 5 &&
-                        <span className={styles.others}>
+                        <span className={styles.more}>
                           +{filteredIngredients.length - 5}
                         </span>}
-                      <img className={styles.image} src={item.image_mobile} alt={item.name} />
+                      <img className={styles.img} src={item.image_mobile} alt={item.name} />
                   </li>
                   : null
               ))

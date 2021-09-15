@@ -3,7 +3,6 @@ export { MainPage } from './main';
 export { NotFoundPage } from './404-not-found';
 export { RegPage } from './register';
 export { ProfilePage } from './profile';
-export { IngredientsPage } from './ingredients';
 export { ForgotPassPage } from './forgot-password';
 export { OrdersPage } from './orders';
 export { IngredientPage } from './igredient';

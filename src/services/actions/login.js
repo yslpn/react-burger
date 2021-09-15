@@ -6,7 +6,8 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const login = (formData) => {
     return async function (dispatch) {
         const res = await loginRequest(formData);
-        localStorage.setItem('token', res.refreshToken);
+        localStorage.setItem('token', res.accessToken);
+        localStorage.setItem('refreshToken', res.refreshToken);
         localStorage.setItem('userName', res.user.name);
         localStorage.setItem('userEmail', res.user.email);
         dispatch({
@@ -40,7 +41,6 @@ export const getUser = () => {
     return async function (dispatch) {
         const res = await getUserRequest();
         if (res && res.success) {
-            localStorage.setItem('token', res.refreshToken);
             localStorage.setItem('userName', res.user.name);
             localStorage.setItem('userEmail', res.user.email);
             dispatch({

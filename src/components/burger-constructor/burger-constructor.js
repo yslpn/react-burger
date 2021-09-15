@@ -88,8 +88,9 @@ const BurgerConstructor = () => {
         userLogged: store.login.userLogged
     }));
     const dispatch = useDispatch();
-    const { modalIsOpened, orderDetails, orderItems, ingredientsData } = useSelector(store => ({
+    const { modalIsOpened, modalIsLoading, orderDetails, orderItems, ingredientsData } = useSelector(store => ({
         modalIsOpened: store.modal.modalIsOpened,
+        modalIsLoading: store.modal.modalIsLoading,
         orderDetails: store.modal.orderDetails,
         orderItems: store.order.orderItems,
         ingredientsData: store.ingredients.ingredientsData
@@ -163,6 +164,9 @@ const BurgerConstructor = () => {
                         if (bun && ingredients) {
                             dispatch(makeOrder(orderItems))
                             dispatch({
+                                type: 'LOADING_MODAL'
+                            })
+                            dispatch({
                                 type: 'CLEAR_ORDER_ITEMS'
                             })
                             dispatch({
@@ -174,9 +178,9 @@ const BurgerConstructor = () => {
                     </Button>
                 </div>
             </section>
-            {modalIsOpened && orderDetails &&
+            {(modalIsLoading || modalIsOpened) && orderDetails && 
                 <Modal>
-                    <OrderDetails />
+                    {modalIsLoading ? <p className={styles.loading}>Загрузка...</p> : <OrderDetails />}
                 </Modal>
             }
         </div>

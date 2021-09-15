@@ -1,4 +1,5 @@
 import { apiURL } from '../../utils/constants';
+import { getCookie } from 'utils/cookie';
 
 export const ADD_ITEM_TO_ORDER = 'ADD_ITEM_TO_ORDER';
 export const REMOVE_ITEM_FROM_ORDER = 'REMOVE_ITEM_FROM_ORDER';
@@ -9,7 +10,8 @@ const sendResource = (url, data) => {
     return fetch(`${url}`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': getCookie('token'),
         },
         body: JSON.stringify(data)
     })

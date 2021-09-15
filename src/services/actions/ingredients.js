@@ -8,7 +8,6 @@ export const DECREASE_COUNTER = 'DECREASE_COUNTER';
 export const RESET_COUNTER = 'RESET_COUNTER';
 
 export function getIngredients() {
-
     return function (dispatch) {
         dispatch({
             type: GET_INGREDIENTS

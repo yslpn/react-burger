@@ -1,11 +1,11 @@
-.card {
+.order_item {
   color: #f2f2f3;
   background-color: #1c1c21;
   border-radius: 40px;
   composes: mt-4 p-6 from global;
 }
 
-.card:first-of-type {
+.order_item:first-of-type {
   margin-top: 0;
 }
 
@@ -15,7 +15,7 @@
   composes: mb-6 from global;
 }
 
-.id {
+.number {
   margin: 0;
   composes: text_type_digits-default from global;
 }
@@ -35,7 +35,7 @@
   composes: text text_type_main-default mb-6 from global;
 }
 
-.content {
+.list_wrapper {
   display: flex;
   justify-content: space-between;
 }
@@ -67,7 +67,7 @@
   z-index:1;  
 }
 
-.others {
+.more {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -83,7 +83,7 @@
   composes: text_type_main-default from global;
 }
 
-.preview {
+.ingredinet {
   position: relative;
   display: flex;
   justify-content: center;
@@ -96,7 +96,7 @@
   overflow: hidden;
 }
 
-.preview::before {
+.ingredinet::before {
   content: "";
   position: absolute;
   top: 2px;
@@ -108,7 +108,7 @@
   background-color: #131316;
 }
 
-.image {
+.img {
   max-height: 56px;
   position: absolute;
   top: 50%;

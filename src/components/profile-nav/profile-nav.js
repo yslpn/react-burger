@@ -11,8 +11,8 @@ const ProfileNav = (props) => {
     }
 
     return (
-        <div className={styles.navmenu}>
-            <nav className={styles.menu}>
+        <div className={styles.wrapper}>
+            <nav className={styles.nav}>
                 <NavLink to="/profile" className={styles.link} activeClassName={styles.active} exact>
                     Профиль
                 </NavLink>
@@ -31,7 +31,7 @@ const ProfileNav = (props) => {
 }
 
 ProfileNav.propTypes = {
-    children: PropTypes.element.isRequired,
+    children: PropTypes.string.isRequired,
 };
 
 export default ProfileNav;

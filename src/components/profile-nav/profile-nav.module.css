@@ -1,16 +1,9 @@
-.navmenu {
+.wrapper {
     width: 320px;
     composes: mr-15 from global;
 }
 
-.user_info {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    composes: ml-15 from global;
-}
-
-.menu {
+.nav {
     list-style: none;
     padding: 0;
     composes: text text_type_main-medium mb-20 from global;
@@ -31,11 +24,11 @@
 }
 
 .active {
-    color: var(--text-primary-color);
+    color: white;
 }
 
 .text {
-    color: var(--text-inactive-color);
+    color: #8585AD;
     opacity: 0.4;
     composes: text text_type_main-default from global;
 }
