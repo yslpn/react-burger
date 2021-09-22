@@ -1,0 +1,34 @@
+.wrapper {
+    width: 320px;
+    composes: mr-15 from global;
+}
+
+.nav {
+    list-style: none;
+    padding: 0;
+    composes: text text_type_main-medium mb-20 from global;
+}
+
+.link {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    display: block;
+    text-decoration: none;
+    color: var(--text-inactive-color);
+}
+
+.link:hover {
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+.active {
+    color: white;
+}
+
+.text {
+    color: #8585AD;
+    opacity: 0.4;
+    composes: text text_type_main-default from global;
+}

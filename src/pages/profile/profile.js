@@ -1,8 +1,8 @@
-import React from 'react';
 import styles from './profile.module.css';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import UserProfile from 'components/user-profile/user-profile';
+import { ProfileNav } from 'components/profile-nav';
 
 const ProfilePage = () => {
     const { userLogged } = useSelector(store => ({
@@ -11,8 +11,13 @@ const ProfilePage = () => {
 
     return (
         !userLogged ? <Redirect to={'/login'} /> :
-            <section className={styles.wrapper}>
-                <UserProfile />
+            <section>
+                <div className={styles.wrapper}>
+                    <ProfileNav>
+                        В этом разделе вы можете изменить свои персональные данные
+                    </ProfileNav>
+                    <UserProfile />
+                </div>
             </section>
     );
 }

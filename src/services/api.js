@@ -18,7 +18,6 @@ export const loginRequest = async formData => {
             setCookie('token', json.accessToken);
             return json;
         }).catch(err => err);
-
         return res;
     } catch (error) {
         console.log(error.message)
@@ -39,7 +38,7 @@ export const logoutRequest = async () => {
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
             body: JSON.stringify({
-                token: localStorage.getItem('token'),
+                token: localStorage.getItem('refreshToken')
             })
         }).then(res => res.json()).then(json => json).catch(err => err);
         setCookie('token', '');
@@ -92,7 +91,6 @@ export const getUserRequest = async () => {
 
 export const updateUserRequest = async formData => {
     try {
-        console.log(formData);
         const res = await fetch(`${apiURL}/auth/user`, {
             method: 'PATCH',
             mode: 'cors',
@@ -106,8 +104,6 @@ export const updateUserRequest = async formData => {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(formData),
         }).then(res => res.json()).then(json => json).catch(err => err);
-
-        console.log(res);
         return res;
     } catch (error) {
         console.log(error.message)
@@ -156,3 +152,35 @@ export const newPassRequest = async formData => {
         return Promise.reject(error.message)
     }
 };
+
+export const refreshTokenRequest = async (after, args=null) => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    try {
+      const res = await fetch(`${apiURL}/auth/token`, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: refreshToken,
+        }),
+      }).then(res => res.json()).then(json => json).catch(err => err);
+      if (res.success) {
+          setCookie('token', res.accessToken);
+          localStorage.setItem('token', res.refreshToken);
+          localStorage.setItem('refreshToken', res.accessToken);
+          console.log('token refreshed!');
+          if (after) {
+            return await after(args)
+          }
+      } else {
+        throw new Error(res.message)
+      }
+    } catch (error) {
+        console.log(error.message);
+        return Promise.reject(error.message);
+    }
+  }

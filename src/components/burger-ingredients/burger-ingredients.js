@@ -111,11 +111,12 @@ const BurgerIngredients = () => {
                                         return (
                                             <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
                                                 dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
-                                            }}>                                            <Link key={data._id} to={{
-                                                pathname: `/ingredients/${data._id}`,
-                                                state: { background: location }
-                                            }} style={{ textDecoration: 'none' }}
-                                            >
+                                            }}>
+                                                <Link key={data._id} to={{
+                                                    pathname: `/ingredients/${data._id}`,
+                                                    state: { background: location }
+                                                }} style={{ textDecoration: 'none' }}
+                                                >
                                                     <BurgerIngredient key={data._id} {...data} />
                                                 </Link>
                                             </div>

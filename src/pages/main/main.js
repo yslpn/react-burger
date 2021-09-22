@@ -6,7 +6,7 @@ import styles from './main.module.css'
 
 const MainPage = () => {
     return (
-        <div className={`${styles.container} ${styles.main__wrapper}`}>
+        <div className={styles.container}>
             <h1 className={`${styles.head} text text_type_main-large mt-10 mb-5`}>Собери бургер</h1>
             <div className={styles.wrapper}>
                 <div className={styles['main__content-items']}>

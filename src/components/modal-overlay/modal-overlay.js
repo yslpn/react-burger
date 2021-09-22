@@ -4,17 +4,20 @@ import PropTypes from 'prop-types';
 import styles from './modal-overlay.module.css';
 
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const ModalOverlay = (props) => {
     const dispatch = useDispatch();
+    let location = useLocation();
     const history = useHistory();
     const node = React.useRef();
     const modalRoot = document.getElementById('modal');
 
     const closeWithEscape = (e) => {
         if (e.keyCode === 27) {
-            history.push('/');
+            if (location.pathname !== '/') {
+                history.goBack();
+            }
             dispatch({ type: 'CLOSE_MODAL' });
         }
         return null;
@@ -22,7 +25,9 @@ const ModalOverlay = (props) => {
 
     const closeWithClick = (e) => {
         if (node.current === e.target) {
-            history.push('/');
+            if (location.pathname !== '/') {
+                history.goBack();
+            }
             dispatch({ type: 'CLOSE_MODAL' });
         }
         return null;

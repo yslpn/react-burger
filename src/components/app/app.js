@@ -12,7 +12,8 @@ import {
   IngredientPage,
   ForgotPassPage,
   OrdersPage,
-  FeedPage
+  FeedPage,
+  OrderPage
 } from '../../pages';
 
 import { useEffect } from 'react';
@@ -21,6 +22,7 @@ import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderInfo from '../order-info/order-info'
 
 function App() {
   const dispatch = useDispatch();
@@ -56,14 +58,20 @@ function App() {
           <ProtectedRoute path="/profile/orders" exact>
             <OrdersPage />
           </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders/:id" exact>
+            <OrderPage />
+          </ProtectedRoute>
           <Route path="/ingredients/:id" exact>
             <IngredientPage />
           </Route>
-          <Route path="/" exact>
-            <MainPage />
+          <Route path="/feed/:id" exact>
+            <OrderPage />
           </Route>
           <Route path="/feed" exact>
             <FeedPage />
+          </Route>
+          <Route path="/" exact>
+            <MainPage />
           </Route>
           <Route>
             <NotFoundPage />
@@ -74,6 +82,22 @@ function App() {
           <Route path='/ingredients/:id' children={
             <Modal>
               <IngredientDetails />
+            </Modal>
+          } />
+        )}
+
+        {background && (
+          <Route path='/feed/:id' children={
+            <Modal>
+              <OrderInfo />
+            </Modal>
+          } />
+        )}
+
+        {background && (
+          <ProtectedRoute path='/profile/orders/:id' children={
+            <Modal>
+              <OrderInfo />
             </Modal>
           } />
         )}

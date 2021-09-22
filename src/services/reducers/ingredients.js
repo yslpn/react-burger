@@ -2,6 +2,7 @@ import { GET_INGREDIENTS, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS, INCRE
 
 const initialState = {
     ingredientsRequest: false,
+    ingredientsRequestSuccess: false,
     ingredientsFailed: false,
     ingredientsData: []
 }
@@ -29,20 +30,23 @@ export const ingredientsReducer = (state = initialState, action) => {
                 ...state,
                 ingredientsRequest: true,
                 ingredientsFailed: false,
+                ingredientsRequestSuccess: false
             };
         }
         case GET_INGREDIENTS_SUCCESS: {
             return {
                 ...state,
                 ingredientsData: action.ingredientsData,
-                ingredientsRequest: false
+                ingredientsRequest: false,
+                ingredientsRequestSuccess: true
             };
         }
         case GET_INGREDIENTS_FAILED: {
             return {
                 ...state,
                 ingredientsFailed: true,
-                ingredientsRequest: false
+                ingredientsRequest: false,
+                ingredientsRequestSuccess: false
             };
         }
         case INCREASE_COUNTER: {

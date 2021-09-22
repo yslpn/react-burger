@@ -1,0 +1,89 @@
+.wrapper {
+  padding: 40px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  composes: text text_type_digits-default from global;
+}
+
+.name {
+  composes: text_type_main-medium text mt-5 mb-2 from global;
+}
+
+.status {
+  margin: 0;
+  margin-bottom: 60px;
+  composes: text text_type_main-default from global;
+}
+
+.compound {
+  composes: text_type_main-medium text mb-2 from global;
+}
+
+.ingredients {
+  max-height: 312px;
+  overflow-y: scroll;
+  padding: 0;
+  padding-right: 25px;
+  margin: 0;
+  margin-bottom: 40px;
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ingredients::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+
+.ingredient_link {
+  color: #f2f2f3;
+  display: flex;
+}
+
+.ingredient_link:hover  {
+  color: #8585ad;
+}
+
+.ingredient_img {
+  max-height: 56px;
+  width: auto;
+}
+
+.ingredient_name {
+  display: flex;
+  align-items: center;
+  composes: text text_type_main-default from global;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+}
+
+.time {
+    color: #8585ad;
+    composes: text_type_main-default from global;
+}
+
+.price_wrapper {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  margin-right: 9px;
+  composes: text text_type_digits-default from global;
+}
