@@ -20,7 +20,6 @@ const ForgotPassPage = () => {
 
     const onChangeEmail = (e) => {
         setEmail(e.target.value);
-        console.log(location.pathname);
     };
 
     const onSubmitEmail = (e) => {
@@ -39,7 +38,6 @@ const ForgotPassPage = () => {
     const onSubmitReset = async (e) => {
         e.preventDefault();
         const res = await newPassRequest(formData);
-        
         if(res.success) {
             setHasSuccess(true);
             setEmail('');
