@@ -1,4 +1,11 @@
-import { GET_INGREDIENTS, GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS, INCREASE_COUNTER, DECREASE_COUNTER, RESET_COUNTER } from '../actions/ingredients';
+import {
+    GET_INGREDIENTS,
+    GET_INGREDIENTS_FAILED,
+    GET_INGREDIENTS_SUCCESS,
+    INCREASE_COUNTER,
+    DECREASE_COUNTER,
+    RESET_COUNTER
+} from '../actions/ingredients';
 
 const initialState = {
     ingredientsRequest: false,

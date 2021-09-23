@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
-import { compose, createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { wsMiddleware } from './services/middleware/ws-middleware';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import {
   WS_CONNECTION_CLOSED,
@@ -38,8 +39,7 @@ const wsActions = {
 const wsFeedOrdersMiddleware = wsMiddleware(wsUrl, wsActions);
 const wsProfileOrdersMiddleware = wsMiddleware(wsUserUrl, wsActions, true)
 
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(applyMiddleware(
+const enhancer = composeWithDevTools(applyMiddleware(
   thunk,
   wsFeedOrdersMiddleware,
   wsProfileOrdersMiddleware

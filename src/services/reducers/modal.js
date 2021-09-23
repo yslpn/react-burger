@@ -1,4 +1,8 @@
-import { OPEN_MODAL, LOADING_MODAL, CLOSE_MODAL } from '../actions/modal';
+import { 
+    OPEN_MODAL, 
+    LOADING_MODAL, 
+    CLOSE_MODAL 
+} from '../actions/modal';
 
 const initialState = {
     modalIsOpened: false,
@@ -14,8 +18,8 @@ export const modalReducer = (state = initialState, action) => {
                 ...state,
                 modalIsOpened: true,
                 modalIsLoading: false,
-                ingredientDetails: action.ingredientDetails,
-                orderDetails: action.orderDetails,
+                ingredientDetails: action.ingredientDetails ? action.ingredientDetails : undefined,
+                orderDetails: action.orderDetails ? action.orderDetails : undefined,
             };
         }
         case LOADING_MODAL: {
