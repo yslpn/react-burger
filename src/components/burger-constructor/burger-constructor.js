@@ -128,21 +128,22 @@ const BurgerConstructor = () => {
     return (
         <div
             ref={dropTarget}
+            data-test='dropTarget'
         >
             <section className={styles.burger} style={{ border }}>
                 <div>
-                    <div className={styles.burger__head}>
+                    <div className={styles.burger__head} data-test='container-bun'>
                         {orderItems.map((elem, index) => elem.type === 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={true} position={'top'} moveIngredient={moveIngredient} /> : null)}
                     </div>
-                    <div className={styles.burger__list}>
+                    <div className={styles.burger__list} data-test='container'>
                         {orderItems.map((elem, index) => elem.type !== 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={false} moveIngredient={moveIngredient} /> : null)}
                     </div>
-                    <div className={styles.burger__footer}>
+                    <div className={styles.burger__footer} data-test='container-bun'>
                         {orderItems.map((elem, index) => elem.type === 'bun' ? <GetBurgerElem key={index} elem={elem} index={index} lock={true} position={'bottom'} moveIngredient={moveIngredient} /> : null)}
                     </div>
                 </div>
                 <div className={styles.burger__order}>
-                    <p className={`${styles.burger__amount} text text_type_main-large`}>
+                    <p className={`${styles.burger__amount} text text_type_main-large`} data-test='burger-price'>
                         {amount}&nbsp;<CurrencyIcon type="primary" />
                     </p>
                     <Button type="primary" size="large" onClick={() => {
@@ -178,7 +179,7 @@ const BurgerConstructor = () => {
                     </Button>
                 </div>
             </section>
-            {(modalIsLoading || modalIsOpened) && orderDetails && 
+            {(modalIsLoading || modalIsOpened) && orderDetails &&
                 <Modal>
                     {modalIsLoading ? <p className={styles.loading}>Загрузка...</p> : <OrderDetails />}
                 </Modal>

@@ -85,7 +85,7 @@ const BurgerIngredients = () => {
                             {ingredientsData.map((data) => {
                                 if (data.type === "bun") {
                                     return (
-                                        <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
+                                        <div key={data._id} data-test='ingredient' className={styles['ingredients__item-wrapper']} onClick={() => {
                                             dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
                                         }}>
                                             <Link key={data._id} to={{
@@ -109,7 +109,7 @@ const BurgerIngredients = () => {
                                 {ingredientsData.map((data) => {
                                     if (data.type === "sauce") {
                                         return (
-                                            <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
+                                            <div key={data._id} data-test='ingredient' className={styles['ingredients__item-wrapper']} onClick={() => {
                                                 dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
                                             }}>
                                                 <Link key={data._id} to={{
@@ -134,7 +134,7 @@ const BurgerIngredients = () => {
                                 {ingredientsData.map((data) => {
                                     if (data.type === "main") {
                                         return (
-                                            <div key={data._id} className={styles['ingredients__item-wrapper']} onClick={() => {
+                                            <div key={data._id} data-test='ingredient' className={styles['ingredients__item-wrapper']} onClick={() => {
                                                 dispatch({ type: 'OPEN_MODAL', ingredientDetails: data });
                                             }}>
                                                 <Link key={data._id} to={{
