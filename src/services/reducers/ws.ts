@@ -5,13 +5,24 @@ import {
     WS_CONNECTION_GET_FEED_ORDERS,
     WS_CONNECTION_GET_USER_ORDERS
 } from '../actions/ws';
+import { TOrder } from 'types';
 
 export const sortingByDate = (a: any, b: any) => {
     const result = new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
     return result;
 }
 
-export const initialState = {
+interface IinitialState {
+    wsConnected: boolean,
+    feedOrdersSuccess: boolean,
+    profileOrdersSuccess: boolean,
+    feedOrders: TOrder[],
+    profileOrders: TOrder[],
+    total: null | number,
+    totalToday: null | number,
+}
+
+export const initialState: IinitialState = {
     wsConnected: false,
     feedOrdersSuccess: false,
     profileOrdersSuccess: false,

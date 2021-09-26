@@ -21,13 +21,13 @@ export type TIngredient = {
 }
 
 export type TOrder = {
-    ingredients: Array<string>;
-    number: number;
     _id: string;
-    owner: { email?: string; name?: string; password?: string, token?: string };
+    ingredients: Array<string>;
     status: 'done' | 'pending' | 'created' | 'cancel';
     name: string;
     createdAt: Date;
-    price: number;
+    updatedAt: Date;
+    number: number;
+    owner?: { email?: string; name?: string; password?: string, token?: string };
+    price?: number;
 }
-

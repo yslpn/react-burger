@@ -3,8 +3,17 @@ import {
     LOADING_MODAL, 
     CLOSE_MODAL 
 } from '../actions/modal';
+import { TIngredient } from 'types';
+import { TOrder } from 'types';
 
-const initialState = {
+interface IinitialState {
+    modalIsOpened: boolean,
+    modalIsLoading: boolean,
+    ingredientDetails: TIngredient | {},
+    orderDetails: TOrder | {},
+}
+
+const initialState: IinitialState = {
     modalIsOpened: false,
     modalIsLoading: false,
     ingredientDetails: {},

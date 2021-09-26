@@ -3,7 +3,15 @@ import {
     LOGOUT_USER 
 } from '../actions/login';
 
-const initialState = {
+interface IinitialState {
+    userLogged: boolean,
+    user: {
+        name: string;
+        email: string;
+    }
+}
+
+const initialState: IinitialState = {
     userLogged: false,
     user: {
         name: '',

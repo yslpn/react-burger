@@ -8,7 +8,14 @@ import {
 } from '../actions/ingredients';
 import { TIngredient } from 'types';
 
-const initialState = {
+interface IinitialState {
+    ingredientsRequest: boolean,
+    ingredientsRequestSuccess: boolean,
+    ingredientsFailed: boolean,
+    ingredientsData: TIngredient[] | [];
+}
+
+const initialState: IinitialState = {
     ingredientsRequest: false,
     ingredientsRequestSuccess: false,
     ingredientsFailed: false,
@@ -22,7 +29,7 @@ const resetCounters = (data: TIngredient[]) => {
     });
 };
 
-const changeCounter = (data: TIngredient[], elem: TIngredient, option: string) => {    
+const changeCounter = (data: TIngredient[], elem: TIngredient, option: string) => {
     return data.map((item: TIngredient) => {
         if (elem._id === item._id) {
             option === 'plus' ? item.__v += 1 : item.__v -= 1;

@@ -4,9 +4,11 @@ import {
     CLEAR_ORDER_ITEMS,
     ADD_FULL_ORDER_LIST
 } from '../actions/order';
-import { TIngredient } from 'types';
-
-const initialState = {
+import { TOrder } from 'types';
+interface IinitialState {
+    orderItems: TOrder[] | [],
+}
+const initialState: IinitialState = {
     orderItems: []
 }
 
@@ -18,7 +20,7 @@ export const orderReducer = (state = initialState, action) => {
             };
         }
         case REMOVE_ITEM_FROM_ORDER: {
-            const removeItemOnce = (arr: TIngredient[], value: TIngredient) => {
+            const removeItemOnce = (arr: TOrder[], value: TOrder) => {
                 const index = arr.indexOf(value);
                 if (index > -1) {
                     arr.splice(index, 1);
