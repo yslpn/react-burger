@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Action, AnyAction } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
-import thunk from 'redux-thunk';
+import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { wsMiddleware } from './services/middleware/ws-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -25,7 +25,7 @@ import {
 import { wsUrl } from 'utils/constants';
 import { wsUserUrl } from 'utils/constants';
 
-const wsActions = {
+export const wsActions = {
   wsInit: WS_CONNECTION_START,
   wsInitProfile: WS_USER_CONNECTION_START,
   wsSendMessage: WS_SEND_MESSAGE,
@@ -44,7 +44,12 @@ const enhancer = composeWithDevTools(applyMiddleware(
   wsFeedOrdersMiddleware,
   wsProfileOrdersMiddleware
 ));
+
 const store = createStore(rootReducer, enhancer);
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
 ReactDOM.render(
   <React.StrictMode>
