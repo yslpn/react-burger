@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from 'services/actions/login';
 import { useHistory } from 'react-router-dom';
+import { AppDispatch } from 'index';
 
 const RegPage: FC = () => {
     const [formData, setFormData] = React.useState<{ name: string; email: string; password: string; }>({ name: '', email: '', password: '' });
@@ -12,7 +13,7 @@ const RegPage: FC = () => {
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         let res = await dispatch(register(formData));
