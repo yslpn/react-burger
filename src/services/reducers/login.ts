@@ -1,10 +1,12 @@
 import {
     LOGIN_USER,
-    LOGOUT_USER
+    LOGOUT_USER,
+    REGISTRATION_USER_SUCCESS
 } from '../actions/login';
 
 interface IinitialState {
     userLogged: boolean,
+    regUserSuccess: boolean,
     user: {
         name: string;
         email: string;
@@ -13,6 +15,7 @@ interface IinitialState {
 
 const initialState: IinitialState = {
     userLogged: false,
+    regUserSuccess: false,
     user: {
         name: '',
         email: '',
@@ -38,7 +41,14 @@ export const loginReducer = (state = initialState, action) => {
                 user: {
                     name: '',
                     email: '',
-                }
+                },
+                regUserSuccess: false
+            };
+        }
+        case REGISTRATION_USER_SUCCESS: {
+            return {
+                ...state,
+                regUserSuccess: true
             };
         }
         default: {

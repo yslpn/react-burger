@@ -1,11 +1,12 @@
-import React, { FormEvent, FC } from 'react';
+import React, { FormEvent, FC, useEffect } from 'react';
 import styles from './register.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'services/actions/login';
 import { useHistory } from 'react-router-dom';
 import { AppDispatch } from 'index';
+import { RootState } from 'index';
 
 const RegPage: FC = () => {
     const [formData, setFormData] = React.useState<{ name: string; email: string; password: string; }>({ name: '', email: '', password: '' });
@@ -13,15 +14,20 @@ const RegPage: FC = () => {
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+    const { regUserSuccess } = useSelector((store: RootState) => ({
+        regUserSuccess: store.login.regUserSuccess,
+    }));
     const dispatch = useDispatch<AppDispatch>();
-    const onSubmit = async (e: FormEvent) => {
+    const onSubmit = (e: FormEvent) => {
         e.preventDefault();
-        let res = await dispatch(register(formData));
-        //@ts-ignore
-        if (res.ok) {
+        dispatch(register(formData));
+    }
+
+    useEffect(() => {
+        if (regUserSuccess) {
             history.replace('/login');
         }
-    }
+      }, [regUserSuccess]);
 
     return (
         <div className={styles.wrapper}>

@@ -1,10 +1,18 @@
 import { AppThunk } from 'index';
-import { loginRequest, logoutRequest, registerRequest, getUserRequest, updateUserRequest, refreshTokenRequest } from '../api';
+import {
+    loginRequest,
+    logoutRequest,
+    registerRequest,
+    getUserRequest,
+    updateUserRequest,
+    refreshTokenRequest
+} from '../api';
 
 export const LOGIN_USER: 'LOGIN_USER' = 'LOGIN_USER';
 export const LOGOUT_USER: 'LOGOUT_USER' = 'LOGOUT_USER';
+export const REGISTRATION_USER_SUCCESS: 'REGISTRATION_USER_SUCCESS' = 'REGISTRATION_USER_SUCCESS';
 
-export const login = (formData: { email: string; password: string; }) => {
+export const login = (formData: { email: string; password: string; }): AppThunk => {
     return async function (dispatch) {
         const res = await loginRequest(formData);
         if (res.success) {
@@ -25,10 +33,15 @@ export const login = (formData: { email: string; password: string; }) => {
 }
 
 export const register = (formData: { name: string; email: string; password: string; }): AppThunk => {
-    return async function () {
+    return async function (dispatch) {
         const res = await registerRequest(formData);
-        if (!res.ok) {
-            alert(res.message)
+        if (res.success) {
+            dispatch({
+                type: REGISTRATION_USER_SUCCESS
+            });
+        } else {
+            console.log(res.message);
+            alert(res.message);
         }
         return res;
     }
@@ -37,11 +50,13 @@ export const register = (formData: { name: string; email: string; password: stri
 export const logout = (): AppThunk => {
     return async function (dispatch) {
         const res = await logoutRequest();
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        dispatch({
-            type: LOGOUT_USER
-        });
+        if (res.success) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            dispatch({
+                type: LOGOUT_USER
+            });
+        }
         return res;
     }
 }
@@ -49,7 +64,7 @@ export const logout = (): AppThunk => {
 export const getUser = (): AppThunk => {
     return async function (dispatch) {
         const res = await getUserRequest();
-        if (res && res.success) {
+        if (res.success) {
             localStorage.setItem('userName', res.user.name);
             localStorage.setItem('userEmail', res.user.email);
             dispatch({
@@ -69,7 +84,7 @@ export const getUser = (): AppThunk => {
 export const updateUser = (formData: { name: string, email: string, password: string }): AppThunk => {
     return async function (dispatch) {
         const res = await updateUserRequest(formData);
-        if (res && res.success) {
+        if (res.success) {
             localStorage.setItem('userName', res.user.name);
             localStorage.setItem('userEmail', res.user.email);
             dispatch({
