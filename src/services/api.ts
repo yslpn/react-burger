@@ -1,7 +1,7 @@
 import { apiURL } from '../utils/constants';
 import { setCookie, getCookie } from '../utils/cookie';
 
-export const loginRequest = async formData => {
+export const loginRequest = async (formData: { email: string; password: string; }) => {
     try {
         const res = await fetch(`${apiURL}/auth/login`, {
             method: 'POST',
@@ -49,7 +49,7 @@ export const logoutRequest = async () => {
     }
 };
 
-export const registerRequest = async formData => {
+export const registerRequest = async (formData: { name: string; email: string; password: string; }) => {
     try {
         return await fetch(`${apiURL}/auth/register`, {
             method: 'POST',
@@ -89,7 +89,7 @@ export const getUserRequest = async () => {
     }
 };
 
-export const updateUserRequest = async formData => {
+export const updateUserRequest = async (formData: { name: string, email: string, password: string }) => {
     try {
         const res = await fetch(`${apiURL}/auth/user`, {
             method: 'PATCH',
@@ -111,7 +111,7 @@ export const updateUserRequest = async formData => {
     }
 };
 
-export const forgotPassRequest = async email => {
+export const forgotPassRequest = async (email: string) => {
     try {
         const res = await fetch(`${apiURL}/password-reset`, {
             method: 'POST',
@@ -132,7 +132,7 @@ export const forgotPassRequest = async email => {
     }
 };
 
-export const newPassRequest = async formData => {
+export const newPassRequest = async (formData: { password: string; token: string; }) => {
     try {
         const res = await fetch(`${apiURL}/password-reset/reset`, {
             method: 'POST',
