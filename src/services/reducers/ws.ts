@@ -27,7 +27,7 @@ const initialState: IinitialState = {
     totalToday: null,
 };
 
-const sortingByDate = (a: any, b: any): number => {
+const sortingByDate = (a: TOrder, b: TOrder): number => {
     const result = new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
     return result;
 }
