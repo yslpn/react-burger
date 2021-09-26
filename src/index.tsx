@@ -25,7 +25,7 @@ import {
 import { wsUrl } from 'utils/constants';
 import { wsUserUrl } from 'utils/constants';
 
-const wsActions = {
+export const wsActions = {
   wsInit: WS_CONNECTION_START,
   wsInitProfile: WS_USER_CONNECTION_START,
   wsSendMessage: WS_SEND_MESSAGE,
@@ -48,7 +48,7 @@ const enhancer = composeWithDevTools(applyMiddleware(
 const store = createStore(rootReducer, enhancer);
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = ThunkDispatch<RootState, void, Action>;
+export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
 ReactDOM.render(

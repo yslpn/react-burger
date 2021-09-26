@@ -44,30 +44,37 @@ export const makeOrder = (sendData: TIngredient[]): AppThunk => {
 
 export const dropToCart = (itemId: { _id?: string; }, ingredientsData: TIngredient[], orderItems: TIngredient[]): AppThunk => {
     return function (dispatch) {
-        const item = ingredientsData.find(i => i._id === itemId._id);
-        if (item.type === 'bun') {
-            orderItems.map((elem) => {
-                if (elem.type === 'bun') {
-                    dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
-                    dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
-                    dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
-                }
-                return null;
-            })
-            dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
-            dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
-            dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
-        } else {
-            dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
-            dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
+        try {
+            const item = ingredientsData.find(i => i._id === itemId._id);
+            if (item.type === 'bun') {
+                orderItems.map((elem) => {
+                    if (elem.type === 'bun') {
+                        dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
+                        dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
+                        dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
+                    }
+                    return null;
+                })
+                dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
+                dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
+                dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
+            } else {
+                dispatch({ type: 'ADD_ITEM_TO_ORDER', orderItems: item });
+                dispatch({ type: 'INCREASE_COUNTER', ingredient: item });
+            }
+        } catch (err) {
+            console.log(err);
         }
-
     }
 };
 
 export const delElem = (elem: TIngredient): AppThunk => {
     return function (dispatch) {
-        dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
-        dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
+        try {
+            dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
+            dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });
+        } catch (err) {
+            console.log(err);
+        }
     }
 };

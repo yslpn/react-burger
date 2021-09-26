@@ -3,12 +3,11 @@ import styles from './burger-constructor.module.css';
 import { ConstructorElement, CurrencyIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import { useSelector, useDispatch } from 'react-redux';
 import { useDrop, useDrag } from "react-dnd";
 import { makeOrder, dropToCart, delElem } from '../../services/actions/order';
 import { useHistory } from 'react-router-dom';
 import { TIngredient } from 'types';
-import { RootState, AppDispatch } from '../../index';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
 
 interface IBurgerElem {
     elem: TIngredient;
@@ -19,7 +18,7 @@ interface IBurgerElem {
 }
 
 const GetBurgerElem: FC<IBurgerElem> = ({ elem, index, lock, position, moveIngredient }) => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
     let name = elem.name;
     if (position === 'top') {
@@ -94,14 +93,14 @@ const GetBurgerElem: FC<IBurgerElem> = ({ elem, index, lock, position, moveIngre
 
 const BurgerConstructor: FC = () => {
     let history = useHistory();
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const { userLogged,
         modalIsOpened,
         modalIsLoading,
         orderDetails,
         orderItems,
         ingredientsData
-    } = useSelector((store: RootState) => ({
+    } = useAppSelector((store) => ({
         userLogged: store.login.userLogged,
         modalIsOpened: store.modal.modalIsOpened,
         modalIsLoading: store.modal.modalIsLoading,

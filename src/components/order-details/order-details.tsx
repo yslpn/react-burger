@@ -1,11 +1,10 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.svg';
-import { useSelector } from 'react-redux';
-import { RootState } from 'index';
 import { FC } from 'react';
+import { useAppSelector } from 'services/hooks';
 
 const OrderDetails: FC = () => {
-    const { orderDetails } = useSelector((store: RootState) => ({
+    const { orderDetails } = useAppSelector((store) => ({
         orderDetails: store.modal.orderDetails
     }));
 

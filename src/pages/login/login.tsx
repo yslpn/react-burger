@@ -2,15 +2,14 @@ import { useRef, useState, useEffect, FC } from 'react';
 import styles from './login.module.css';
 import { Link, Redirect } from 'react-router-dom';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../services/actions/login';
-import { AppDispatch, RootState } from 'index';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
 
 const LoginPage: FC = () => {
-    const { userLogged } = useSelector((store: RootState) => ({
+    const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const [formData, setFormData] = useState<{ email: string; password: string; }>({ email: '', password: '' });
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

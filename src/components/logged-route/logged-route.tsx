@@ -1,8 +1,7 @@
-import { useSelector } from 'react-redux';
 import { Route, Redirect, useLocation } from 'react-router-dom';
 import { FC, ReactNode } from 'react';
-import { RootState } from 'index';
 import { TLocation } from "types";
+import { useAppSelector } from 'services/hooks';
 interface ILoggedRoute {
     path: string; 
     exact?: boolean;
@@ -10,7 +9,7 @@ interface ILoggedRoute {
 }
 
 const LoggedRoute: FC<ILoggedRoute> = ({ children, ...rest }) => {
-    const { userLogged } = useSelector((store: RootState) => ({
+    const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));
     const location = useLocation<TLocation>();

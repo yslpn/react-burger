@@ -2,10 +2,9 @@ import React from 'react';
 import styles from './forgot-password.module.css';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { forgotPassRequest, newPassRequest } from '../../services/api';
-import { RootState } from 'index';
 import { TLocation } from 'types';
+import { useAppSelector } from 'services/hooks';
 
 const ForgotPassPage = () => {
     let history = useHistory();
@@ -16,7 +15,7 @@ const ForgotPassPage = () => {
     const [hasError, setHasError] = React.useState<boolean>(false);
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const [hasSuccess, setHasSuccess] = React.useState<boolean>(false);
-    const { userLogged } = useSelector((store: RootState) => ({
+    const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));
 

@@ -18,16 +18,15 @@ import {
 
 import { useEffect, FC } from 'react';
 import { getUser } from '../../services/actions/login';
-import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderInfo from '../order-info/order-info'
 import { TLocation } from 'types';
-import { AppDispatch } from 'index'
+import { useAppDispatch } from 'services/hooks';
 
 const App: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   let location = useLocation<TLocation>();
   const history = useHistory();
   let background = history.action === 'PUSH' && location.state && location.state.background;

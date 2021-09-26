@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 import { Route, Redirect, FC } from 'react-router-dom';
-import { RootState } from '../../index';
+import { useAppSelector } from 'services/hooks';
 
 interface IProtectedRoute {
     path: string;
@@ -10,7 +9,7 @@ interface IProtectedRoute {
 }
 
 const ProtectedRoute: FC<IProtectedRoute> = ({ children, ...rest }) => {
-    const { userLogged } = useSelector((store: RootState) => ({
+    const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));
 

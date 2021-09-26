@@ -1,15 +1,13 @@
-import { useRef, useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useRef, useState, useEffect } from 'react';
 import styles from './user-profile.module.css';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { updateUser } from '../../services/actions/login';
-import { RootState } from 'index';
-import { AppDispatch } from 'index';
 import { FC } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
 
 const UserProfile: FC = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { name, email } = useSelector((store: RootState) => ({
+    const dispatch = useAppDispatch();
+    const { name, email } = useAppSelector((store) => ({
         name: store.login.user.name,
         email: store.login.user.email
     }));

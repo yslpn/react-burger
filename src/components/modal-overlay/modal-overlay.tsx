@@ -1,13 +1,13 @@
 import React, { useEffect, FC, ReactNode, MouseEvent } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './modal-overlay.module.css';
-import { useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import { TLocation } from 'types';
-import { AppDispatch } from 'index'
+import { CLOSE_MODAL } from 'services/actions/modal';
+import { useAppDispatch } from 'services/hooks';
 
 const ModalOverlay:FC<{children: ReactNode}> = ({children}) => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     let location = useLocation<TLocation>();
     const history = useHistory();
     const node = React.useRef();
@@ -18,7 +18,7 @@ const ModalOverlay:FC<{children: ReactNode}> = ({children}) => {
             if (location.pathname !== '/') {
                 history.goBack();
             }
-            dispatch({ type: 'CLOSE_MODAL' });
+            dispatch({ type: CLOSE_MODAL });
         }
         return null;
     };
@@ -28,7 +28,7 @@ const ModalOverlay:FC<{children: ReactNode}> = ({children}) => {
             if (location.pathname !== '/') {
                 history.goBack();
             }
-            dispatch({ type: 'CLOSE_MODAL' });
+            dispatch({ type: CLOSE_MODAL });
         }
         return null;
     };

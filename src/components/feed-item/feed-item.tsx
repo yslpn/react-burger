@@ -1,11 +1,10 @@
 import styles from './feed-item.module.css'
-import { useSelector } from 'react-redux';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
 import resultData from '../../utils/formate-date';
-import { RootState } from 'index';
 import { FC } from 'react';
 import { TIngredient, TLocation, TOrder } from "types";
+import { useAppSelector } from 'services/hooks';
 
 interface IFeedItem {
   item: TOrder;
@@ -14,7 +13,7 @@ interface IFeedItem {
 
 const FeedItem: FC<IFeedItem> = ({ item, link }) => {
   let location = useLocation<TLocation>();
-  const { ingredientsData } = useSelector((store: RootState) => ({
+  const { ingredientsData } = useAppSelector((store) => ({
     ingredientsData: store.ingredients.ingredientsData,
   }));
 

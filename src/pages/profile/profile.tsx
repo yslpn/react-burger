@@ -1,13 +1,12 @@
 import styles from './profile.module.css';
-import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import UserProfile from 'components/user-profile/user-profile';
 import ProfileNav from 'components/profile-nav/profile-nav';
-import { RootState } from 'index';
 import { FC } from 'react';
+import { useAppSelector } from 'services/hooks';
 
 const ProfilePage: FC = () => {
-    const { userLogged } = useSelector((store: RootState) => ({
+    const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));
 

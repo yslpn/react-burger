@@ -1,11 +1,10 @@
 import styles from './orders-table.module.css';
-import { useSelector } from 'react-redux';
-import { RootState } from 'index';
 import { FC } from 'react';
 import { TOrder } from "types";
+import { useAppSelector } from 'services/hooks';
 
 const OrdersTable: FC = () => {
-    const { feedOrders, total, totalToday } = useSelector((store: RootState) => ({
+    const { feedOrders, total, totalToday } = useAppSelector((store) => ({
         feedOrders: store.ws.feedOrders,
         total: store.ws.total,
         totalToday: store.ws.totalToday,

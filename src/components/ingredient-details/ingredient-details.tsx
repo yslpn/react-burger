@@ -1,12 +1,11 @@
 import styles from './ingredient-details.module.css';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { RootState } from 'index';
 import { FC } from 'react';
 import { TIngredient } from "types";
+import { useAppSelector } from 'services/hooks';
 
 const IngredientDetails: FC = () => {
-    const { ingredientDetails, ingredientsData } = useSelector((store: RootState) => ({
+    const { ingredientDetails, ingredientsData } = useAppSelector((store) => ({
         ingredientDetails: store.modal.ingredientDetails,
         ingredientsData: store.ingredients.ingredientsData
     }));

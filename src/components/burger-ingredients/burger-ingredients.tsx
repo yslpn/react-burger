@@ -2,15 +2,14 @@ import React, { FC } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { RootState, AppDispatch } from 'index';
 import { TLocation } from 'types';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
 
 const BurgerIngredients: FC = () => {
     let location = useLocation<TLocation>();
-    const dispatch = useDispatch<AppDispatch>();
-    const { ingredientsData, ingredientsRequest, ingredientsFailed } = useSelector((store: RootState) => ({
+    const dispatch = useAppDispatch();
+    const { ingredientsData, ingredientsRequest, ingredientsFailed } = useAppSelector((store) => ({
         ingredientsData: store.ingredients.ingredientsData,
         ingredientsRequest: store.ingredients.ingredientsRequest,
         ingredientsFailed: store.ingredients.ingredientsFailed

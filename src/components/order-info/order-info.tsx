@@ -1,19 +1,17 @@
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-info.module.css';
 import resultData from '../../utils/formate-date';
-import { Link, useLocation, useHistory } from 'react-router-dom';
-import { RootState } from 'index';
+import { Link, useLocation, useHistory, useParams } from 'react-router-dom';
 import { FC } from 'react';
 import { TIngredient, TLocation } from "types";
+import { useAppSelector } from 'services/hooks';
 
 const OrderInfo: FC = () => {
     let location = useLocation<TLocation>();
     const history = useHistory();
     let background = history.action === 'PUSH' && location.state && location.state.background;
 
-    const { ingredientsRequestSuccess, ingredientsData, feedOrders, profileOrders } = useSelector((store: RootState) => ({
+    const { ingredientsRequestSuccess, ingredientsData, feedOrders, profileOrders } = useAppSelector((store) => ({
         ingredientsRequestSuccess: store.ingredients.ingredientsRequestSuccess,
         ingredientsData: store.ingredients.ingredientsData,
         feedOrders: store.ws.feedOrders,

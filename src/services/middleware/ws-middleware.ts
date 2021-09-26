@@ -1,6 +1,7 @@
 import { getCookie } from "../../utils/cookie";
+import { wsActions } from "../../index";
 
-export const wsMiddleware = (url: string, actions: any, token: boolean = false) => {
+export const wsMiddleware = (url: string, actions: typeof wsActions, token: boolean = false) => {
     return store => {
 
         let socket = null;
