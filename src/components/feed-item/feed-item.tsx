@@ -12,7 +12,7 @@ interface IFeedItem {
 }
 
 const FeedItem: FC<IFeedItem> = ({ item, link }) => {
-  let location = useLocation<TLocation>();
+  const location = useLocation<TLocation>();
   const { ingredientsData } = useAppSelector((store) => ({
     ingredientsData: store.ingredients.ingredientsData,
   }));

@@ -7,7 +7,7 @@ import { TIngredient, TLocation } from "types";
 import { useAppSelector } from 'services/hooks';
 
 const OrderInfo: FC = () => {
-    let location = useLocation<TLocation>();
+    const location = useLocation<TLocation>();
     const history = useHistory();
     let background = history.action === 'PUSH' && location.state && location.state.background;
 

@@ -8,7 +8,7 @@ import { useAppDispatch } from 'services/hooks';
 
 const ModalOverlay:FC<{children: ReactNode}> = ({children}) => {
     const dispatch = useAppDispatch();
-    let location = useLocation<TLocation>();
+    const location = useLocation<TLocation>();
     const history = useHistory();
     const node = React.useRef();
     const modalRoot = document.getElementById('modal');

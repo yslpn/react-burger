@@ -8,7 +8,7 @@ import { useAppSelector } from 'services/hooks';
 
 const ForgotPassPage = () => {
     let history = useHistory();
-    let location = useLocation<TLocation>();
+    const location = useLocation<TLocation>();
     const [formData, setFormData] = React.useState<{ password: string; token: string; }>({ password: '', token: '' });
     const [email, setEmail] = React.useState<string>('');
     const [isVerification, setVerification] = React.useState<boolean>(false);

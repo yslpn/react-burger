@@ -27,7 +27,7 @@ import { useAppDispatch } from 'services/hooks';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
-  let location = useLocation<TLocation>();
+  const location = useLocation<TLocation>();
   const history = useHistory();
   let background = history.action === 'PUSH' && location.state && location.state.background;
 

@@ -7,7 +7,7 @@ import { TLocation } from 'types';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 
 const BurgerIngredients: FC = () => {
-    let location = useLocation<TLocation>();
+    const location = useLocation<TLocation>();
     const dispatch = useAppDispatch();
     const { ingredientsData, ingredientsRequest, ingredientsFailed } = useAppSelector((store) => ({
         ingredientsData: store.ingredients.ingredientsData,
