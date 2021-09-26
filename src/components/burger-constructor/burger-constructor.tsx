@@ -109,9 +109,9 @@ const BurgerConstructor: FC = () => {
         orderItems: store.order.orderItems,
         ingredientsData: store.ingredients.ingredientsData
     }));
-    const [amount, setAmount] = React.useState(0);
+    const [amount, setAmount] = React.useState<number>(0);
 
-    const moveIngredient = (dragIndex, hoverIndex) => {
+    const moveIngredient = (dragIndex: number, hoverIndex: number): void => {
         const dragIngredient = orderItems[dragIndex];
         if (dragIngredient.type === 'bun') {
             return;

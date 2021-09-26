@@ -14,8 +14,8 @@ const OrdersTable: FC = () => {
         totalToday: store.ws.totalToday,
     }));
     
-    const doneItems: TOrder[]  = feedOrders.filter(item => item.status === "done")
-    const pendingItems: TOrder[] = feedOrders.filter(item => item.status === "pending")
+    const doneItems: TOrder[]  = feedOrders.filter((item: TOrder): boolean => item.status === "done")
+    const pendingItems: TOrder[] = feedOrders.filter((item: TOrder): boolean => item.status === "pending")
 
     return (
         <section className={styles.wrapper}>

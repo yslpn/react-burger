@@ -13,8 +13,8 @@ const UserProfile: FC = () => {
         name: store.login.user.name,
         email: store.login.user.email
     }));
-    const [formData, setFormData] = useState({ name: name, email: email, password: '' });
-    const [isChanged, setChanged] = useState(false);
+    const [formData, setFormData] = useState<{ name: string; email: string; password: string; }>({ name: name, email: email, password: '' });
+    const [isChanged, setChanged] = useState<boolean>(false);
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
         if (!isChanged) { setChanged(true) }
