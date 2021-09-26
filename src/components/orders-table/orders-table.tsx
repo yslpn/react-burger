@@ -6,11 +6,8 @@ import { TOrder } from "types";
 
 const OrdersTable: FC = () => {
     const { feedOrders, total, totalToday } = useSelector((store: RootState) => ({
-        // @ts-ignore
         feedOrders: store.ws.feedOrders,
-        // @ts-ignore
         total: store.ws.total,
-        // @ts-ignore
         totalToday: store.ws.totalToday,
     }));
     

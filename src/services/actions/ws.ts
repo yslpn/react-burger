@@ -9,39 +9,47 @@ export const WS_CONNECTION_GET_FEED_ORDERS: 'WS_CONNECTION_GET_FEED_ORDERS'= 'WS
 export const WS_CONNECTION_GET_USER_ORDERS: 'WS_CONNECTION_GET_USER_ORDERS' = 'WS_CONNECTION_GET_USER_ORDERS';
 import { TOrder } from "types";
 
-export const getFeedOrders = (message: TOrder[]) => {
+interface IWithPayload {
+    type: string;
+    payload: TOrder[] | TOrder;
+}
+interface IWithOutPayload {
+    type: string;
+}
+
+export const getFeedOrders = (message: TOrder[]): IWithPayload => {
     return {
         type: WS_CONNECTION_GET_FEED_ORDERS,
         payload: message
     }
 };
 
-export const getProfileOrders = (message: TOrder[]) => {
+export const getProfileOrders = (message: TOrder[]): IWithPayload => {
     return {
         type: WS_CONNECTION_GET_USER_ORDERS,
         payload: message
     }
 };
 
-export const wsConnectionSuccess = () => {
+export const wsConnectionSuccess = (): IWithOutPayload => {
     return {
         type: WS_CONNECTION_SUCCESS
     };
 };
 
-export const wsConnectionError = () => {
+export const wsConnectionError = (): IWithOutPayload => {
     return {
         type: WS_CONNECTION_ERROR
     };
 };
 
-export const wsConnectionClosed = () => {
+export const wsConnectionClosed = (): IWithOutPayload => {
     return {
         type: WS_CONNECTION_CLOSED
     };
 };
 
-export const wsSendMessage = (message) => {
+export const wsSendMessage = (message): IWithPayload => {
     return {
         type: WS_SEND_MESSAGE,
         payload: message

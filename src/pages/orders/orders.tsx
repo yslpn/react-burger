@@ -14,9 +14,7 @@ const OrdersPage: FC = () => {
     const { userLogged, ingredientsRequestSuccess, profileOrders, profileOrdersSuccess } = useSelector((store: RootState) => ({
         userLogged: store.login.userLogged,
         ingredientsRequestSuccess: store.ingredients.ingredientsRequestSuccess,
-        // @ts-ignore
         profileOrders: store.ws.profileOrders,
-        // @ts-ignore
         profileOrdersSuccess: store.ws.profileOrdersSuccess
     }));
     const dispatch = useDispatch<AppDispatch>();

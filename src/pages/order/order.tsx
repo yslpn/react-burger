@@ -11,10 +11,7 @@ import { AppDispatch, RootState } from "index";
 const OrderPage: FC = () => {
     const { ingredientsRequestSuccess, feedOrdersSuccess, profileOrdersSuccess  } = useSelector((store: RootState) => ({
         ingredientsRequestSuccess: store.ingredients.ingredientsRequestSuccess,
-        
-        // @ts-ignore
         feedOrdersSuccess: store.ws.feedOrdersSuccess,
-        // @ts-ignore
         profileOrdersSuccess: store.ws.profileOrdersSuccess
     }));
 

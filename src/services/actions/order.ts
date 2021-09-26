@@ -1,12 +1,14 @@
 import { apiURL } from '../../utils/constants';
 import { getCookie } from 'utils/cookie';
+import { AppThunk } from 'index';
+import { TIngredient } from 'types';
 
 export const ADD_ITEM_TO_ORDER: 'ADD_ITEM_TO_ORDER' = 'ADD_ITEM_TO_ORDER';
 export const REMOVE_ITEM_FROM_ORDER: 'REMOVE_ITEM_FROM_ORDER' = 'REMOVE_ITEM_FROM_ORDER';
 export const CLEAR_ORDER_ITEMS: 'CLEAR_ORDER_ITEMS' = 'CLEAR_ORDER_ITEMS';
 export const ADD_FULL_ORDER_LIST: 'ADD_FULL_ORDER_LIST' = 'ADD_FULL_ORDER_LIST';
 
-const sendResource = (url, data) => {
+const sendResource = (url: string, data: { "ingredients": TIngredient[] }) => {
     return fetch(`${url}`, {
         method: 'POST',
         headers: {
@@ -29,7 +31,7 @@ const sendResource = (url, data) => {
         });
 };
 
-export const makeOrder = (sendData) => {
+export const makeOrder = (sendData: TIngredient[]): AppThunk => {
     return async function (dispatch) {
         try {
             const res = await sendResource(`${apiURL}/orders`, { "ingredients": sendData });
@@ -40,7 +42,7 @@ export const makeOrder = (sendData) => {
     }
 };
 
-export const dropToCart = (itemId, ingredientsData, orderItems) => {
+export const dropToCart = (itemId: { _id?: string; }, ingredientsData: TIngredient[], orderItems: TIngredient[]): AppThunk => {
     return function (dispatch) {
         const item = ingredientsData.find(i => i._id === itemId._id);
         if (item.type === 'bun') {
@@ -63,7 +65,7 @@ export const dropToCart = (itemId, ingredientsData, orderItems) => {
     }
 };
 
-export const delElem = (elem) => {
+export const delElem = (elem: TIngredient): AppThunk => {
     return function (dispatch) {
         dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
         dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });

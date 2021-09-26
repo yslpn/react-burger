@@ -16,9 +16,7 @@ const OrderInfo: FC = () => {
     const { ingredientsRequestSuccess, ingredientsData, feedOrders, profileOrders } = useSelector((store: RootState) => ({
         ingredientsRequestSuccess: store.ingredients.ingredientsRequestSuccess,
         ingredientsData: store.ingredients.ingredientsData,
-        // @ts-ignore
         feedOrders: store.ws.feedOrders,
-        // @ts-ignore
         profileOrders: store.ws.profileOrders,
     }));
 

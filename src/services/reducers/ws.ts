@@ -14,7 +14,7 @@ interface IinitialState {
     feedOrders: TOrder[],
     profileOrders: TOrder[],
     total: null | number,
-    totalToday: null | number,
+    totalToday: null | number
 }
 
 const initialState: IinitialState = {
@@ -32,7 +32,7 @@ const sortingByDate = (a: any, b: any): number => {
     return result;
 }
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action): any => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS: {
             return {
