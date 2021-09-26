@@ -15,7 +15,7 @@ interface IBurgerElem {
     index: number;
     lock: boolean;
     position?: 'top' | 'bottom';
-    moveIngredient: any;
+    moveIngredient: (a: number, b: number) => void;
 }
 
 const GetBurgerElem: FC<IBurgerElem> = ({ elem, index, lock, position, moveIngredient }) => {

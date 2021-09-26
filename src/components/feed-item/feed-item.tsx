@@ -5,11 +5,11 @@ import { Link, useLocation } from 'react-router-dom';
 import resultData from '../../utils/formate-date';
 import { RootState } from 'index';
 import { FC } from 'react';
-import { TIngredient, TLocation } from "types";
+import { TIngredient, TLocation, TOrder } from "types";
 
 interface IFeedItem {
-  item: any;
-  link: any;
+  item: TOrder;
+  link: 'feed' | 'orders';
 }
 
 const FeedItem: FC<IFeedItem> = ({ item, link }) => {
@@ -19,6 +19,8 @@ const FeedItem: FC<IFeedItem> = ({ item, link }) => {
   }));
 
   const { number, name, status, createdAt, ingredients } = item;
+  console.log(status);
+  
   
   const filteredIngredients = ingredients.map((item: string) => ingredientsData.find((element: TIngredient): boolean => element._id === item));
 
@@ -43,7 +45,7 @@ const FeedItem: FC<IFeedItem> = ({ item, link }) => {
           {name}
         </h2>
         <p className={styles.status} style={status === 'done' ? { color: '#00CCCC' } : { color: '#F2F2F3' }}>
-          {status === 'done' ? 'Выполнен' : status === 'canceled' ? 'Отменен' : 'Выполняется'}
+          {status === 'done' ? 'Выполнен' : 'Выполняется'}
         </p>
         <div className={styles.list_wrapper}>
           <ul className={styles.ingredients}>
