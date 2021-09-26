@@ -19,11 +19,9 @@ const FeedItem: FC<IFeedItem> = ({ item, link }) => {
   }));
 
   const { number, name, status, createdAt, ingredients } = item;
-  console.log(status);
-  
-  
-  const filteredIngredients = ingredients.map((item: string) => ingredientsData.find((element: TIngredient): boolean => element._id === item));
 
+  const filteredIngredients = ingredients.map((item: string) => ingredientsData.find((element: TIngredient): boolean => element._id === item));
+  
   const price = filteredIngredients.reduce((prevValue: number, item: TIngredient) => prevValue + item.price, 0);
 
   return (

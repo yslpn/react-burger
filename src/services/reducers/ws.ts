@@ -7,11 +7,6 @@ import {
 } from '../actions/ws';
 import { TOrder } from 'types';
 
-export const sortingByDate = (a: any, b: any) => {
-    const result = new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-    return result;
-}
-
 interface IinitialState {
     wsConnected: boolean,
     feedOrdersSuccess: boolean,
@@ -22,7 +17,7 @@ interface IinitialState {
     totalToday: null | number,
 }
 
-export const initialState: IinitialState = {
+const initialState: IinitialState = {
     wsConnected: false,
     feedOrdersSuccess: false,
     profileOrdersSuccess: false,
@@ -32,9 +27,14 @@ export const initialState: IinitialState = {
     totalToday: null,
 };
 
-export const wsReducer = ( state=initialState, action ) => {
-    switch(action.type) {
-        case  WS_CONNECTION_SUCCESS: {
+const sortingByDate = (a: any, b: any): number => {
+    const result = new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+    return result;
+}
+
+export const wsReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case WS_CONNECTION_SUCCESS: {
             return {
                 ...state,
                 wsConnected: true,

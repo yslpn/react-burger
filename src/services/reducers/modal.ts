@@ -1,7 +1,7 @@
-import { 
-    OPEN_MODAL, 
-    LOADING_MODAL, 
-    CLOSE_MODAL 
+import {
+    OPEN_MODAL,
+    LOADING_MODAL,
+    CLOSE_MODAL
 } from '../actions/modal';
 import { TIngredient } from 'types';
 import { TOrder } from 'types';

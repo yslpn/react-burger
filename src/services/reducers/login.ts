@@ -1,6 +1,6 @@
-import { 
-    LOGIN_USER, 
-    LOGOUT_USER 
+import {
+    LOGIN_USER,
+    LOGOUT_USER
 } from '../actions/login';
 
 interface IinitialState {

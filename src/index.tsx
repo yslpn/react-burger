@@ -44,6 +44,7 @@ const enhancer = composeWithDevTools(applyMiddleware(
   wsFeedOrdersMiddleware,
   wsProfileOrdersMiddleware
 ));
+
 const store = createStore(rootReducer, enhancer);
 
 export type RootState = ReturnType<typeof store.getState>;
