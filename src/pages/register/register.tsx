@@ -1,4 +1,4 @@
-import React, {FormEvent, FC} from 'react';
+import React, { FormEvent, FC } from 'react';
 import styles from './register.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { register } from 'services/actions/login';
 import { useHistory } from 'react-router-dom';
 
 const RegPage: FC = () => {
-    const [formData, setFormData] = React.useState({ name: '', email: '', password: '' });
+    const [formData, setFormData] = React.useState<{ name: string; email: string; password: string; }>({ name: '', email: '', password: '' });
     const history = useHistory();
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
