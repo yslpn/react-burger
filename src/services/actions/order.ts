@@ -2,6 +2,7 @@ import { apiURL } from '../../utils/constants';
 import { getCookie } from 'utils/cookie';
 import { AppThunk } from 'index';
 import { TIngredient } from 'types';
+import { AppDispatch } from 'index';
 
 export const ADD_ITEM_TO_ORDER: 'ADD_ITEM_TO_ORDER' = 'ADD_ITEM_TO_ORDER';
 export const REMOVE_ITEM_FROM_ORDER: 'REMOVE_ITEM_FROM_ORDER' = 'REMOVE_ITEM_FROM_ORDER';
@@ -32,7 +33,7 @@ const sendResource = (url: string, data: { "ingredients": TIngredient[] }) => {
 };
 
 export const makeOrder = (sendData: TIngredient[]): AppThunk => {
-    return async function (dispatch) {
+    return async function (dispatch: AppDispatch) {
         try {
             const res = await sendResource(`${apiURL}/orders`, { "ingredients": sendData });
             dispatch({ type: 'OPEN_MODAL', orderDetails: res });
@@ -43,7 +44,7 @@ export const makeOrder = (sendData: TIngredient[]): AppThunk => {
 };
 
 export const dropToCart = (itemId: { _id?: string; }, ingredientsData: TIngredient[], orderItems: TIngredient[]): AppThunk => {
-    return function (dispatch) {
+    return function (dispatch: AppDispatch) {
         try {
             const item = ingredientsData.find(i => i._id === itemId._id);
             if (item.type === 'bun') {
@@ -69,7 +70,7 @@ export const dropToCart = (itemId: { _id?: string; }, ingredientsData: TIngredie
 };
 
 export const delElem = (elem: TIngredient): AppThunk => {
-    return function (dispatch) {
+    return function (dispatch: AppDispatch) {
         try {
             dispatch({ type: 'REMOVE_ITEM_FROM_ORDER', orderItems: elem });
             dispatch({ type: 'DECREASE_COUNTER', ingredient: elem });

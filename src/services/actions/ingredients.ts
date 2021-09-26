@@ -1,5 +1,6 @@
 import { AppThunk } from 'index';
 import { apiURL } from '../../utils/constants';
+import { AppDispatch } from 'index';
 
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_FAILED: 'GET_INGREDIENTS_FAILED' = 'GET_INGREDIENTS_FAILED';
@@ -9,7 +10,7 @@ export const DECREASE_COUNTER: 'DECREASE_COUNTER' = 'DECREASE_COUNTER';
 export const RESET_COUNTER: 'RESET_COUNTER' = 'RESET_COUNTER';
 
 export function getIngredients(): AppThunk {
-    return function (dispatch) {
+    return function (dispatch: AppDispatch) {
         try {
             dispatch({
                 type: GET_INGREDIENTS
