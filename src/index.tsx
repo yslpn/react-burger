@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, AnyAction } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
 import thunk, { ThunkAction } from 'redux-thunk';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { wsMiddleware } from './services/middleware/ws-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -53,11 +53,11 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unk
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router basename="/react-burger">
+    <BrowserRouter basename="/react-burger">
       <Provider store={store}>
         <App />
       </Provider>
-    </Router>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
