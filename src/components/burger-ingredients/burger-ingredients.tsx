@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { TLocation } from 'types';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 
-const BurgerIngredients: FC = () => {
+const BurgerIngredients = () => {
     const location = useLocation<TLocation>();
     const dispatch = useAppDispatch();
     const { ingredientsData, ingredientsRequest, ingredientsFailed } = useAppSelector((store) => ({

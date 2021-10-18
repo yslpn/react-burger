@@ -7,7 +7,13 @@ import { TLocation } from 'types';
 import { CLOSE_MODAL } from 'services/actions/modal';
 import { useAppDispatch } from 'services/hooks';
 
-const Modal:FC<{children: ReactNode}> = ({ children }) => {
+const Modal = (
+    {
+        children
+    }: {
+        children: ReactNode
+    }
+) => {
     const location = useLocation<TLocation>();
     const history = useHistory();
     const dispatch = useAppDispatch();

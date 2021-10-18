@@ -5,7 +5,7 @@ import { updateUser } from '../../services/actions/login';
 import { FC } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 
-const UserProfile: FC = () => {
+const UserProfile = () => {
     const dispatch = useAppDispatch();
     const { name, email } = useAppSelector((store) => ({
         name: store.login.user.name,

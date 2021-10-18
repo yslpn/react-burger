@@ -4,7 +4,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import { useDrag } from "react-dnd";
 import { TIngredient } from "types"
 
-const BurgerIngredient: FC<TIngredient> = React.memo((data) => {
+const BurgerIngredient = React.memo((data: TIngredient) => {
     const { _id } = data;
     const [{ isDrag }, dragRef] = useDrag({
         type: "ingredient",

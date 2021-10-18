@@ -8,7 +8,12 @@ interface ILoggedRoute {
     children: ReactNode;
 }
 
-const LoggedRoute: FC<ILoggedRoute> = ({ children, ...rest }) => {
+const LoggedRoute = (
+    {
+        children,
+        ...rest
+    }: ILoggedRoute
+) => {
     const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));

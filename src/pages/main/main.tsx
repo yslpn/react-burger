@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from './main.module.css'
 import { FC } from 'react';
 
-const MainPage: FC = () => {
+const MainPage = () => {
     return (
         <div className={styles.container}>
             <h1 className={`${styles.head} text text_type_main-large mt-10 mb-5`}>Собери бургер</h1>

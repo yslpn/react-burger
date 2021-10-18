@@ -11,7 +11,12 @@ interface IFeedItem {
   link: 'feed' | 'orders';
 }
 
-const FeedItem: FC<IFeedItem> = ({ item, link }) => {
+const FeedItem = (
+  {
+    item,
+    link
+  }: IFeedItem
+) => {
   const location = useLocation<TLocation>();
   const { ingredientsData } = useAppSelector((store) => ({
     ingredientsData: store.ingredients.ingredientsData,

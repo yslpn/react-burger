@@ -8,7 +8,12 @@ interface IProtectedRoute {
     children: ReactNode;
 }
 
-const ProtectedRoute: FC<IProtectedRoute> = ({ children, ...rest }) => {
+const ProtectedRoute = (
+    {
+        children,
+        ...rest
+    }: IProtectedRoute
+) => {
     const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));

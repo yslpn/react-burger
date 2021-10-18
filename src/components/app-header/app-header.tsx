@@ -4,7 +4,7 @@ import mobileLogo from '../../images/logo.svg';
 import { NavLink } from 'react-router-dom';
 import { FC } from 'react';
 
-const AppHeader: FC = () => {
+const AppHeader = () => {
     return (
         <header className={styles.header}>
             <nav className={`${styles['header__nav']} pt-4 pb-4`}>

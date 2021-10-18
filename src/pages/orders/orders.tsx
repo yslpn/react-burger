@@ -9,7 +9,7 @@ import {
 } from '../../services/actions/ws';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 
-const OrdersPage: FC = () => {
+const OrdersPage = () => {
     const { userLogged, ingredientsRequestSuccess, profileOrders, profileOrdersSuccess } = useAppSelector((store) => ({
         userLogged: store.login.userLogged,
         ingredientsRequestSuccess: store.ingredients.ingredientsRequestSuccess,

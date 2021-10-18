@@ -5,7 +5,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { login } from '../../services/actions/login';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 
-const LoginPage: FC = () => {
+const LoginPage = () => {
     const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));

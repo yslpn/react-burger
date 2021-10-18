@@ -8,7 +8,7 @@ import {
 import OrdersTable from 'components/orders-table/orders-table';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 
-const FeedPage: FC = () => {
+const FeedPage = () => {
     const { ingredientsRequestSuccess, feedOrders } = useAppSelector((store) => ({
         ingredientsRequestSuccess: store.ingredients.ingredientsRequestSuccess,
         feedOrders: store.ws.feedOrders,

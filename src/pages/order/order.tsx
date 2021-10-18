@@ -7,7 +7,7 @@ import {
 import { FC } from "react";
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 
-const OrderPage: FC = () => {
+const OrderPage = () => {
     const { ingredientsRequestSuccess, feedOrdersSuccess, profileOrdersSuccess  } = useAppSelector((store) => ({
         ingredientsRequestSuccess: store.ingredients.ingredientsRequestSuccess,
         feedOrdersSuccess: store.ws.feedOrdersSuccess,

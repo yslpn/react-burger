@@ -6,7 +6,13 @@ import { TLocation } from 'types';
 import { CLOSE_MODAL } from 'services/actions/modal';
 import { useAppDispatch } from 'services/hooks';
 
-const ModalOverlay:FC<{children: ReactNode}> = ({children}) => {
+const ModalOverlay = (
+    {
+        children
+    }: {
+        children: ReactNode
+    }
+) => {
     const dispatch = useAppDispatch();
     const location = useLocation<TLocation>();
     const history = useHistory();

@@ -5,7 +5,7 @@ import ProfileNav from 'components/profile-nav/profile-nav';
 import { FC } from 'react';
 import { useAppSelector } from 'services/hooks';
 
-const ProfilePage: FC = () => {
+const ProfilePage = () => {
     const { userLogged } = useAppSelector((store) => ({
         userLogged: store.login.userLogged
     }));

@@ -6,7 +6,7 @@ import { register } from 'services/actions/login';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 
-const RegPage: FC = () => {
+const RegPage = () => {
     const [formData, setFormData] = React.useState<{ name: string; email: string; password: string; }>({ name: '', email: '', password: '' });
     const history = useHistory();
     const onChange = (e) => {

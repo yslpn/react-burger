@@ -17,7 +17,15 @@ interface IBurgerElem {
     moveIngredient: (a: number, b: number) => void;
 }
 
-const GetBurgerElem: FC<IBurgerElem> = ({ elem, index, lock, position, moveIngredient }) => {
+const GetBurgerElem = (
+    {
+        elem,
+        index,
+        lock,
+        position,
+        moveIngredient
+    }: IBurgerElem
+) => {
     const dispatch = useAppDispatch();
 
     let name = elem.name;
@@ -91,7 +99,7 @@ const GetBurgerElem: FC<IBurgerElem> = ({ elem, index, lock, position, moveIngre
     );
 };
 
-const BurgerConstructor: FC = () => {
+const BurgerConstructor = () => {
     let history = useHistory();
     const dispatch = useAppDispatch();
     const { userLogged,

@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { TIngredient } from "types";
 import { useAppSelector } from 'services/hooks';
 
-const IngredientDetails: FC = () => {
+const IngredientDetails = () => {
     const { ingredientDetails, ingredientsData } = useAppSelector((store) => ({
         ingredientDetails: store.modal.ingredientDetails,
         ingredientsData: store.ingredients.ingredientsData

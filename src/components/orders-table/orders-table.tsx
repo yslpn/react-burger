@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { TOrder } from "types";
 import { useAppSelector } from 'services/hooks';
 
-const OrdersTable: FC = () => {
+const OrdersTable = () => {
     const { feedOrders, total, totalToday } = useAppSelector((store) => ({
         feedOrders: store.ws.feedOrders,
         total: store.ws.total,

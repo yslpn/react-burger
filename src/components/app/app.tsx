@@ -25,7 +25,7 @@ import OrderInfo from '../order-info/order-info'
 import { TLocation } from 'types';
 import { useAppDispatch } from 'services/hooks';
 
-const App: FC = () => {
+const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation<TLocation>();
   const history = useHistory();

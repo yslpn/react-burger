@@ -3,7 +3,7 @@ import done from '../../images/done.svg';
 import { FC } from 'react';
 import { useAppSelector } from 'services/hooks';
 
-const OrderDetails: FC = () => {
+const OrderDetails = () => {
     const { orderDetails } = useAppSelector((store) => ({
         orderDetails: store.modal.orderDetails
     }));
